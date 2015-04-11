@@ -20,7 +20,7 @@ public class UsersController {
 		List<User> users = new ArrayList<User>();
 		
 		users.add(new User("Fonixx", 1, "fonix@email.com"));
-		users.add(new User("paulo", 2, "paulo@email.com"));
+		users.add(new User("paulos", 2, "paulo@email.com"));
 		
 		return users;
 	}
