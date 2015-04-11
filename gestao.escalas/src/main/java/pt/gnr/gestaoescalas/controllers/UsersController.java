@@ -19,7 +19,7 @@ public class UsersController {
 	public @ResponseBody List<User> getUsers() {
 		List<User> users = new ArrayList<User>();
 		
-		users.add(new User("Fonix", 1, "fonix@email.com"));
+		users.add(new User("Fonixx", 1, "fonix@email.com"));
 		users.add(new User("paulo", 2, "paulo@email.com"));
 		
 		return users;
