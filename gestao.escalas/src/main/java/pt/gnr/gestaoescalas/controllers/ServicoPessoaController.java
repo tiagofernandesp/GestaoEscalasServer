@@ -45,7 +45,10 @@ public class ServicoPessoaController {
 				servicoPessoas.add(new ServicoPessoa(
 						resultSet.getInt("Id"),
 						resultSet.getInt("Servico_Id"),
-						resultSet.getInt("Pessoa_Id")));
+						resultSet.getInt("Pessoa_Id"),
+						resultSet.getInt("Status"),
+						resultSet.getString("Erro"),
+						resultSet.getDate("Data")));
 			}
 			return servicoPessoas;
 		} catch (Exception e) {
@@ -92,7 +95,10 @@ public class ServicoPessoaController {
 				servicoPessoa = new ServicoPessoa(
 						resultSet.getInt("Id"),
 						resultSet.getInt("Servico_Id"),
-						resultSet.getInt("Pessoa_Id"));
+						resultSet.getInt("Pessoa_Id"),
+						resultSet.getInt("Status"),
+						resultSet.getString("Erro"),
+						resultSet.getDate("Data"));
 			}
 			return servicoPessoa;
 		} catch (Exception e) {
@@ -129,9 +135,12 @@ public class ServicoPessoaController {
 			connect = DataService.loadDriver();
 
 			preparedStatement = connect
-					.prepareStatement("insert into gestaoescalas.servicopessoa (Servico_Id,Pessoa_Id) values ( ?, ?)");
+					.prepareStatement("insert into gestaoescalas.servicopessoa (Servico_Id,Pessoa_Id,Status,Erro,Data) values ( ?, ?,?, ?,?)");
 			preparedStatement.setInt(1, servicoPessoa.getServico_Id());
 			preparedStatement.setInt(2, servicoPessoa.getPessoa_Id());
+			preparedStatement.setInt(3, servicoPessoa.getStatus());
+			preparedStatement.setString(4, servicoPessoa.getErro());
+			preparedStatement.setDate(5, servicoPessoa.getData());
 
 			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
@@ -164,10 +173,13 @@ public class ServicoPessoaController {
 			connect = DataService.loadDriver();
 
 			preparedStatement = connect
-					.prepareStatement("update gestaoescalas.servicopessoa set Servico_Id = ?, Pessoa_Id = ? where Id = ?");
+					.prepareStatement("update gestaoescalas.servicopessoa set Servico_Id = ?, Pessoa_Id = ?, Status = ? , Erro = ?, Data = ? where Id = ?");
 			preparedStatement.setInt(1, servicoPessoa.getServico_Id());
 			preparedStatement.setInt(2, servicoPessoa.getPessoa_Id());
-			preparedStatement.setInt(3, servicoPessoa.getId());
+			preparedStatement.setInt(3, servicoPessoa.getStatus());
+			preparedStatement.setString(4, servicoPessoa.getErro());
+			preparedStatement.setDate(5, servicoPessoa.getData());
+			preparedStatement.setInt(6, servicoPessoa.getId());
 
 			return preparedStatement.executeUpdate();
 		} catch (Exception e) {

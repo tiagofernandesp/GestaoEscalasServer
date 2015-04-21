@@ -45,7 +45,10 @@ public class GratificadoPessoaController {
 				gratificadoPessoas.add(new GratificadoPessoa(
 						resultSet.getInt("Id"),
 						resultSet.getInt("Gratificado_Id"),
-						resultSet.getInt("Pessoa_Id")));
+						resultSet.getInt("Pessoa_Id"),
+						resultSet.getInt("Status"),
+						resultSet.getString("Erro"),
+						resultSet.getDate("Data")));
 			}
 			return gratificadoPessoas;
 		} catch (Exception e) {
@@ -92,7 +95,10 @@ public class GratificadoPessoaController {
 				gratificadoPessoa = new GratificadoPessoa(
 						resultSet.getInt("Id"),
 						resultSet.getInt("Gratificado_Id"),
-						resultSet.getInt("Pessoa_Id"));
+						resultSet.getInt("Pessoa_Id"),
+						resultSet.getInt("Status"),
+						resultSet.getString("Erro"),
+						resultSet.getDate("Data"));
 			}
 			return gratificadoPessoa;
 		} catch (Exception e) {
@@ -129,9 +135,12 @@ public class GratificadoPessoaController {
 			connect = DataService.loadDriver();
 
 			preparedStatement = connect
-					.prepareStatement("insert into gestaoescalas.gratificadopessoa (Gratificado_Id,Pessoa_Id) values ( ?, ?)");
+					.prepareStatement("insert into gestaoescalas.gratificadopessoa (Gratificado_Id,Pessoa_Id,Status,Erro,Data) values ( ?, ?,?, ?,?)");
 			preparedStatement.setInt(1, gratificadoPessoa.getGratificado_Id());
 			preparedStatement.setInt(2, gratificadoPessoa.getPessoa_Id());
+			preparedStatement.setInt(3, gratificadoPessoa.getStatus());
+			preparedStatement.setString(4, gratificadoPessoa.getErro());
+			preparedStatement.setDate(5, gratificadoPessoa.getData());
 
 			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
@@ -164,10 +173,13 @@ public class GratificadoPessoaController {
 			connect = DataService.loadDriver();
 
 			preparedStatement = connect
-					.prepareStatement("update gestaoescalas.gratificadopessoa set Gratificado_Id = ?, Pessoa_Id = ? where Id = ?");
+					.prepareStatement("update gestaoescalas.gratificadopessoa set Gratificado_Id = ?, Pessoa_Id = ?, Status = ? , Erro = ?, Data = ? where Id = ?");
 			preparedStatement.setInt(1, gratificadoPessoa.getGratificado_Id());
 			preparedStatement.setInt(2, gratificadoPessoa.getPessoa_Id());
-			preparedStatement.setInt(3, gratificadoPessoa.getId());
+			preparedStatement.setInt(3, gratificadoPessoa.getStatus());
+			preparedStatement.setString(4, gratificadoPessoa.getErro());
+			preparedStatement.setDate(5, gratificadoPessoa.getData());
+			preparedStatement.setInt(6, gratificadoPessoa.getId());
 
 			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
