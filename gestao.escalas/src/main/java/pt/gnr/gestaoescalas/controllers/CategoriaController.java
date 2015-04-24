@@ -70,7 +70,7 @@ public class CategoriaController {
 	 * 
 	 * */
 	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
-	public @ResponseBody Categoria getCategoria(
+	public static @ResponseBody Categoria getCategoria(
 			@PathVariable("id") int id) throws Exception {
 
 		Categoria categoria = null;

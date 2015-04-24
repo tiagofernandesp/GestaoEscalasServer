@@ -14,8 +14,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import pt.gnr.gestaoescalas.domain.Categoria;
 import pt.gnr.gestaoescalas.domain.Pessoa;
 import pt.gnr.gestaoescalas.domain.DataService;
+import pt.gnr.gestaoescalas.controllers.CategoriaController;;
 
 @Controller
 @RequestMapping("/pessoa")
@@ -56,7 +58,9 @@ public class PessoaController {
 						resultSet.getString("NumeroPosto"),
 						resultSet.getBoolean("Ativo"),
 						resultSet.getDate("DataIngresso"),
-						resultSet.getInt("Categoria_Id")));
+						CategoriaController.getCategoria(resultSet.getInt("Categoria_Id")))
+				);
+				
 			}
 			return pessoas;
 		} catch (Exception e) {
@@ -89,7 +93,6 @@ public class PessoaController {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-
 		try {
 
 			connect = DataService.loadDriver();
@@ -115,7 +118,7 @@ public class PessoaController {
 						resultSet.getString("NumeroPosto"),
 						resultSet.getBoolean("Ativo"),
 						resultSet.getDate("DataIngresso"),
-						resultSet.getInt("Categoria_Id"));
+						CategoriaController.getCategoria(resultSet.getInt("Categoria_Id")));
 			}
 			return Pessoa;
 		} catch (Exception e) {
@@ -166,7 +169,7 @@ public class PessoaController {
 			preparedStatement.setString(11, Pessoa.getNumeroPosto());
 			preparedStatement.setBoolean(12, Pessoa.getAtivo());
 			preparedStatement.setDate(13, Pessoa.getDataIngresso());
-			preparedStatement.setInt(14, Pessoa.getCategoria_Id());
+			//preparedStatement.setInt(14, Pessoa.getCategoria_Id());
 
 			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
@@ -213,7 +216,7 @@ public class PessoaController {
 			preparedStatement.setString(11, Pessoa.getNumeroPosto());
 			preparedStatement.setBoolean(12, Pessoa.getAtivo());
 			preparedStatement.setDate(13, Pessoa.getDataIngresso());
-			preparedStatement.setInt(14, Pessoa.getCategoria_Id());
+			//preparedStatement.setInt(14, Pessoa.getCategoria_Id());
 			preparedStatement.setInt(15, Pessoa.getId());
 
 			return preparedStatement.executeUpdate();

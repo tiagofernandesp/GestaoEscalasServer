@@ -17,18 +17,18 @@ public class Pessoa {
 	private String numeroPosto;
 	private boolean ativo;
 	private Date dataIngresso;
-	private int categoria_Id;
+	private Categoria categoria;
 	
 	
 	public Pessoa() {
-		this(-1, null, null, null, null, null, null, null, -1, null, null, null, false, null, 0);
+		this(-1, null, null, null, null, null, null, null, -1, null, null, null, false, null, null);
 	}
 
 
 	public Pessoa(int id, String pNome, String uNome, String apelido,
 			String telemovel, String telefone, String cP, String rua, int porta,
 			String cidade, String numeroGNR, String numeroPosto, boolean ativo,
-			Date dataIngresso, int categoria_Id) {
+			Date dataIngresso, Categoria categoria) {
 		super();
 		this.id = id;
 		this.pNome = pNome;
@@ -44,7 +44,7 @@ public class Pessoa {
 		this.numeroPosto = numeroPosto;
 		this.ativo = ativo;
 		this.dataIngresso = dataIngresso;
-		this.categoria_Id = categoria_Id;
+		this.categoria = categoria;
 	}
 
 
@@ -188,13 +188,15 @@ public class Pessoa {
 	}
 
 
-	public int getCategoria_Id() {
-		return categoria_Id;
+	public Categoria getCategoria() {
+		return categoria;
 	}
 
 
-	public void setCategoria_Id(int categoria_Id) {
-		this.categoria_Id = categoria_Id;
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
+
+
 	
 }
