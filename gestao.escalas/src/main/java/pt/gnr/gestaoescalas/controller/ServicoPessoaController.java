@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
 import pt.gnr.gestaoescalas.dao.ServicoPessoaDAOImpl;
 import pt.gnr.gestaoescalas.model.ServicoPessoa;
 
@@ -18,11 +17,11 @@ import pt.gnr.gestaoescalas.model.ServicoPessoa;
 public class ServicoPessoaController {
 
 	private ServicoPessoaDAOImpl servicoPessoaDAOImpl = new ServicoPessoaDAOImpl();
-	
+
 	/**
-	 * 
+	 *
 	 * Devolve todos objetos da tabela
-	 * 
+	 *
 	 * @return Lista de objectos
 	 * */
 	@RequestMapping(method = RequestMethod.GET)
@@ -37,13 +36,13 @@ public class ServicoPessoaController {
 	}
 
 	/**
-	 * 
+	 *
 	 * Metodo devolte objecto pelo "/{id}"
-	 * 
+	 *
 	 * @param id
 	 *            do objecto
 	 * @return servicoPessoa retorna um objecto
-	 * 
+	 *
 	 * */
 	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
 	public @ResponseBody ServicoPessoa getServicoPessoa(
@@ -54,66 +53,66 @@ public class ServicoPessoaController {
 		} catch (Exception e) {
 			throw e;
 		}
-		
+
 
 	}
 
 	/**
-	 * 
+	 *
 	 * Adiciona novo objecto
-	 * 
+	 *
 	 * @param servicoPessoa
 	 *            objecto para adicionar à BD
-	 * 
+	 *
 	 * */
 	@RequestMapping(method = RequestMethod.POST)
-	public @ResponseBody void addServicoPessoa(
+	public @ResponseBody int addServicoPessoa(
 			@RequestBody ServicoPessoa servicoPessoa) throws Exception {
 
 		try {
-			servicoPessoaDAOImpl.addServicoPessoa(servicoPessoa);
+			return servicoPessoaDAOImpl.addServicoPessoa(servicoPessoa);
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 
 	/**
-	 * 
+	 *
 	 * Modifica objecto
-	 * 
+	 *
 	 * @param servicoPessoa
 	 *            objecto para modificar na BD
-	 * 
+	 *
 	 * */
 	@RequestMapping(method = RequestMethod.PUT)
-	public @ResponseBody void updateServicoPessoa(
+	public @ResponseBody int updateServicoPessoa(
 			@RequestBody ServicoPessoa servicoPessoa) throws Exception {
-		
+
 		try {
-			servicoPessoaDAOImpl.updateServicoPessoa(servicoPessoa);
+			return servicoPessoaDAOImpl.updateServicoPessoa(servicoPessoa);
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 
 	/**
-	 * 
+	 *
 	 * Apaga objecto
-	 * 
+	 *
 	 * @param servicoPessoa
 	 *            objecto para apagar na BD
-	 * 
-	 * 
+	 *
+	 *
 	 * */
 	@RequestMapping(method = RequestMethod.DELETE)
-	public @ResponseBody void deleteServicoPessoa(
+	public @ResponseBody int deleteServicoPessoa(
 			@RequestBody int id) throws Exception {
-		
+
 		try {
-			servicoPessoaDAOImpl.deleteServicoPessoa(id);
+			return servicoPessoaDAOImpl.deleteServicoPessoa(id);
 		} catch (Exception e) {
 			throw e;
 		}
-		
+
 	}
 }

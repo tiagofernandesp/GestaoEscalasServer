@@ -17,11 +17,11 @@ import pt.gnr.gestaoescalas.model.Pessoa;
 public class PessoaController {
 
 	private PessoaDAOImpl pessoaDAOImpl = new PessoaDAOImpl();
-	
+
 	/**
-	 * 
+	 *
 	 * Devolve todos objetos da tabela
-	 * 
+	 *
 	 * @return Lista de objectos
 	 * */
 	@RequestMapping(method = RequestMethod.GET)
@@ -36,81 +36,81 @@ public class PessoaController {
 	}
 
 	/**
-	 * 
+	 *
 	 * Metodo devolte objecto pelo "/{id}"
-	 * 
+	 *
 	 * @param id
 	 *            do objecto
 	 * @return Pessoa retorna um objecto
-	 * 
+	 *
 	 * */
 	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
 	public @ResponseBody Pessoa getPessoa(
 			@PathVariable("id") int id) throws Exception {
-		
+
 		try {
 			Pessoa pessoa = pessoaDAOImpl.getPessoa(id);
 			return pessoa;
 		} catch (Exception e) {
 			throw e;
 		}
-		
+
 
 	}
 
 	/**
-	 * 
+	 *
 	 * Adiciona novo objecto
-	 * 
+	 *
 	 * @param Pessoa
 	 *            objecto para adicionar à BD
-	 * 
+	 *
 	 * */
 	@RequestMapping(method = RequestMethod.POST)
-	public @ResponseBody void addPessoa(
+	public @ResponseBody int addPessoa(
 			@RequestBody Pessoa pessoa) throws Exception {
 
 		try {
-			pessoaDAOImpl.addPessoa(pessoa);
+			return pessoaDAOImpl.addPessoa(pessoa);
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 
 	/**
-	 * 
+	 *
 	 * Modifica objecto
-	 * 
+	 *
 	 * @param Pessoa
 	 *            objecto para modificar na BD
-	 * 
+	 *
 	 * */
 	@RequestMapping(method = RequestMethod.PUT)
-	public @ResponseBody void updatePessoa(
+	public @ResponseBody int updatePessoa(
 			@RequestBody Pessoa pessoa) throws Exception {
-		
+
 		try {
-			pessoaDAOImpl.updatePessoa(pessoa);
+			return pessoaDAOImpl.updatePessoa(pessoa);
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 
 	/**
-	 * 
+	 *
 	 * Apaga objecto
-	 * 
+	 *
 	 * @param Pessoa
 	 *            objecto para apagar na BD
-	 * 
-	 * 
+	 *
+	 *
 	 * */
 	@RequestMapping(method = RequestMethod.DELETE)
-	public @ResponseBody void deletePessoa(
+	public @ResponseBody int deletePessoa(
 			@RequestBody int id) throws Exception {
 
 		try {
-			pessoaDAOImpl.deletePessoa(id);
+			return pessoaDAOImpl.deletePessoa(id);
 		} catch (Exception e) {
 			throw e;
 		}

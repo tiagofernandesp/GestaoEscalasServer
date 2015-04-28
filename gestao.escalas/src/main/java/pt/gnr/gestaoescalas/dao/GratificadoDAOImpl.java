@@ -34,13 +34,15 @@ public class GratificadoDAOImpl implements GratificadoDAO{
 			while (resultSet.next()) {
 				gratificados.add(new Gratificado(
 						resultSet.getInt("Id"),
-						resultSet.getDate("HoraInicio"),
-						resultSet.getDate("HoraFim"),
+						resultSet.getTime("HoraInicio"),
+						resultSet.getTime("HoraFim"),
 						resultSet.getString("Observacao"),
 						resultSet.getString("Local"),
 						tipoGratificadoDAOImpl.getTipoGratificado(resultSet.getInt("TipoGratificado_Id")),
 						viaturaDAOImpl.getViatura(resultSet.getInt("Viatura_Id")),
-						resultSet.getString("FRadio")));
+						resultSet.getString("FRadio"),
+						resultSet.getDate("DataInicio"),
+						resultSet.getDate("DataFim")));
 			}
 			return gratificados;
 		} catch (Exception e) {
@@ -74,13 +76,15 @@ public class GratificadoDAOImpl implements GratificadoDAO{
 			while (resultSet.next()) {
 				gratificado = new Gratificado(
 						resultSet.getInt("Id"),
-						resultSet.getDate("HoraInicio"),
-						resultSet.getDate("HoraFim"),
+						resultSet.getTime("HoraInicio"),
+						resultSet.getTime("HoraFim"),
 						resultSet.getString("Observacao"),
 						resultSet.getString("Local"),
 						tipoGratificadoDAOImpl.getTipoGratificado(resultSet.getInt("TipoGratificado_Id")),
 						viaturaDAOImpl.getViatura(resultSet.getInt("Viatura_Id")),
-						resultSet.getString("FRadio"));
+						resultSet.getString("FRadio"),
+						resultSet.getDate("DataInicio"),
+						resultSet.getDate("DataFim"));
 			}
 			return gratificado;
 		} catch (Exception e) {
@@ -95,7 +99,7 @@ public class GratificadoDAOImpl implements GratificadoDAO{
 		}
 	}
 
-	public void addGratificado(Gratificado gratificado) throws Exception {
+	public int addGratificado(Gratificado gratificado) throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
 		DataService dataService = new DataService();
@@ -104,15 +108,17 @@ public class GratificadoDAOImpl implements GratificadoDAO{
 			connect = dataService.loadDriver();
 
 			preparedStatement = connect
-					.prepareStatement("insert into gestaoescalas.gratificado (HoraInicio,HoraFim,Observacao,Local,TipoGratificado_Id,Viatura_Id,FRadio) values ( ?, ?,?, ?,?, ?,?)");
-			preparedStatement.setDate(1, gratificado.getHoraInicio());
-			preparedStatement.setDate(2, gratificado.getHoraFim());
+					.prepareStatement("insert into gestaoescalas.gratificado (HoraInicio,HoraFim,Observacao,Local,TipoGratificado_Id,Viatura_Id,FRadio,DataInicio,DataFim) values ( ?, ?,?, ?,?, ?,?,?,?)");
+			preparedStatement.setTime(1, gratificado.getHoraInicio());
+			preparedStatement.setTime(2, gratificado.getHoraFim());
 			preparedStatement.setString(3, gratificado.getObservacao());
 			preparedStatement.setString(4, gratificado.getLocal());
 			preparedStatement.setInt(5, gratificado.getTipoGratificado().getId());
 			preparedStatement.setInt(6, gratificado.getViatua().getId());
-			preparedStatement.setString(7, gratificado.getFRadio());
-			preparedStatement.executeUpdate();
+			preparedStatement.setString(7, gratificado.getfRadio());
+			preparedStatement.setDate(8, gratificado.getDataInicio());
+			preparedStatement.setDate(9, gratificado.getDataFim());
+			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -124,7 +130,7 @@ public class GratificadoDAOImpl implements GratificadoDAO{
 
 	}
 
-	public void deleteGratificado(int id) throws Exception {
+	public int deleteGratificado(int id) throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
 		DataService dataService = new DataService();
@@ -135,7 +141,7 @@ public class GratificadoDAOImpl implements GratificadoDAO{
 			preparedStatement = connect
 					.prepareStatement("DELETE FROM gestaoescalas.gratificado where Id = ?");
 			preparedStatement.setInt(1, id);
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -147,7 +153,7 @@ public class GratificadoDAOImpl implements GratificadoDAO{
 
 	}
 
-	public void updateGratificado(Gratificado gratificado) throws Exception {
+	public int updateGratificado(Gratificado gratificado) throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
 		DataService dataService = new DataService();
@@ -156,16 +162,18 @@ public class GratificadoDAOImpl implements GratificadoDAO{
 			connect = dataService.loadDriver();
 
 			preparedStatement = connect
-					.prepareStatement("update gestaoescalas.gratificado set HoraInicio = ?, HoraFim = ?, Observacao = ?, Local = ?, TipoGratificado_Id = ?, Viatura_Id = ?, FRadio = ? where Id = ?");
-			preparedStatement.setDate(1, gratificado.getHoraInicio());
-			preparedStatement.setDate(2, gratificado.getHoraFim());
+					.prepareStatement("update gestaoescalas.gratificado set HoraInicio = ?, HoraFim = ?, Observacao = ?, Local = ?, TipoGratificado_Id = ?, Viatura_Id = ?, FRadio = ?, DataInicio =?, DataFim=? where Id = ?");
+			preparedStatement.setTime(1, gratificado.getHoraInicio());
+			preparedStatement.setTime(2, gratificado.getHoraFim());
 			preparedStatement.setString(3, gratificado.getObservacao());
 			preparedStatement.setString(4, gratificado.getLocal());
 			preparedStatement.setInt(5, gratificado.getTipoGratificado().getId());
 			preparedStatement.setInt(6, gratificado.getViatua().getId());
-			preparedStatement.setString(7, gratificado.getFRadio());
-			preparedStatement.setInt(8, gratificado.getId());
-			preparedStatement.executeUpdate();
+			preparedStatement.setString(7, gratificado.getfRadio());
+			preparedStatement.setDate(8, gratificado.getDataInicio());
+			preparedStatement.setDate(9, gratificado.getDataFim());
+			preparedStatement.setInt(10, gratificado.getId());
+			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {

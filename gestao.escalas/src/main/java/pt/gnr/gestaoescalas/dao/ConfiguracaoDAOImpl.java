@@ -55,7 +55,7 @@ public class ConfiguracaoDAOImpl implements ConfiguracaoDAO {
 		}
 	}
 
-	public void addConfiguracao(Configuracao configuracao) throws Exception {
+	public int addConfiguracao(Configuracao configuracao) throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
 		DataService dataService = new DataService();
@@ -69,7 +69,7 @@ public class ConfiguracaoDAOImpl implements ConfiguracaoDAO {
 			preparedStatement.setString(2, configuracao.getNomePosto());
 			preparedStatement.setInt(3, configuracao.getnFolgasSemanais());
 			preparedStatement.setInt(4, configuracao.getnDiasFeriasAnuais());
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -81,7 +81,7 @@ public class ConfiguracaoDAOImpl implements ConfiguracaoDAO {
 
 	}
 
-	public void deleteConfiguracao(int id) throws Exception{
+	public int deleteConfiguracao(int id) throws Exception{
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
 		DataService dataService = new DataService();
@@ -92,7 +92,7 @@ public class ConfiguracaoDAOImpl implements ConfiguracaoDAO {
 			preparedStatement = connect
 					.prepareStatement("DELETE FROM gestaoescalas.configuracao where Id = ?");
 			preparedStatement.setInt(1, id);
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 
 		} catch (Exception e) {
 			throw e;
@@ -105,7 +105,7 @@ public class ConfiguracaoDAOImpl implements ConfiguracaoDAO {
 
 	}
 
-	public void updateConfiguracao(Configuracao configuracao) throws Exception {
+	public int updateConfiguracao(Configuracao configuracao) throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
 		DataService dataService = new DataService();
@@ -119,7 +119,7 @@ public class ConfiguracaoDAOImpl implements ConfiguracaoDAO {
 			preparedStatement.setInt(2, configuracao.getnFolgasSemanais());
 			preparedStatement.setInt(3, configuracao.getnDiasFeriasAnuais());
 			preparedStatement.setInt(4, configuracao.getId());
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {

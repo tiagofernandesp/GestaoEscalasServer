@@ -74,7 +74,7 @@ public class TipoGratificadoDAOImpl implements TipoGratificadoDAO{
 		}
 	}
 
-	public void addTipoGratificado(TipoGratificado tipoGratificado)
+	public int addTipoGratificado(TipoGratificado tipoGratificado)
 			throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
@@ -87,7 +87,7 @@ public class TipoGratificadoDAOImpl implements TipoGratificadoDAO{
 					.prepareStatement("insert into gestaoescalas.tipogratificado (Nome,Prefixo) values ( ?, ?)");
 			preparedStatement.setString(1, tipoGratificado.getNome());
 			preparedStatement.setString(2, tipoGratificado.getPrefixo());
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -99,7 +99,7 @@ public class TipoGratificadoDAOImpl implements TipoGratificadoDAO{
 
 	}
 
-	public void deleteTipoGratificado(int id) throws Exception {
+	public int deleteTipoGratificado(int id) throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
 		DataService dataService = new DataService();
@@ -110,7 +110,7 @@ public class TipoGratificadoDAOImpl implements TipoGratificadoDAO{
 			preparedStatement = connect
 					.prepareStatement("DELETE FROM gestaoescalas.tipogratificado where Id = ?");
 			preparedStatement.setInt(1, id);
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 
 		} catch (Exception e) {
 			throw e;
@@ -123,7 +123,7 @@ public class TipoGratificadoDAOImpl implements TipoGratificadoDAO{
 
 	}
 
-	public void updateTipoGratificado(TipoGratificado tipoGratificado)
+	public int updateTipoGratificado(TipoGratificado tipoGratificado)
 			throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
@@ -137,7 +137,7 @@ public class TipoGratificadoDAOImpl implements TipoGratificadoDAO{
 			preparedStatement.setString(1, tipoGratificado.getNome());
 			preparedStatement.setString(2, tipoGratificado.getPrefixo());
 			preparedStatement.setInt(3, tipoGratificado.getId());
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {

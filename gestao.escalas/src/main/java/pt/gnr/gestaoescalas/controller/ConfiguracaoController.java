@@ -14,16 +14,16 @@ import pt.gnr.gestaoescalas.model.Configuracao;
 @Controller
 @RequestMapping("/configuracao")
 public class ConfiguracaoController {
-	
-	private ConfiguracaoDAOImpl configuracaoDAOImpl = new ConfiguracaoDAOImpl(); 
+
+	private ConfiguracaoDAOImpl configuracaoDAOImpl = new ConfiguracaoDAOImpl();
 	/**
-	 * 
+	 *
 	 * Metodo devolte objecto pelo "/{id}"
-	 * 
+	 *
 	 * @param id
 	 *            do objecto
 	 * @return configuracao retorna um objecto
-	 * 
+	 *
 	 * */
 	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
 	public @ResponseBody Configuracao getConfiguracao(
@@ -39,57 +39,57 @@ public class ConfiguracaoController {
 	}
 
 	/**
-	 * 
+	 *
 	 * Adiciona novo objecto
-	 * 
+	 *
 	 * @param configuracao
 	 *            objecto para adicionar à BD
-	 * 
+	 *
 	 * */
 	@RequestMapping(method = RequestMethod.POST)
-	public @ResponseBody void addConfiguracao(
+	public @ResponseBody int addConfiguracao(
 			@RequestBody Configuracao configuracao) throws Exception {
-		
+
 		try {
-			configuracaoDAOImpl.addConfiguracao(configuracao);
+			return configuracaoDAOImpl.addConfiguracao(configuracao);
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 
 	/**
-	 * 
+	 *
 	 * Modifica objecto
-	 * 
+	 *
 	 * @param configuracao
 	 *            objecto para modificar na BD
-	 * 
+	 *
 	 * */
 	@RequestMapping(method = RequestMethod.PUT)
-	public @ResponseBody void updateConfiguracao(
+	public @ResponseBody int updateConfiguracao(
 			@RequestBody Configuracao configuracao) throws Exception {
 		try {
-			configuracaoDAOImpl.updateConfiguracao(configuracao);
+			return configuracaoDAOImpl.updateConfiguracao(configuracao);
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 
 	/**
-	 * 
+	 *
 	 * Apaga objecto
-	 * 
+	 *
 	 * @param configuracao
 	 *            objecto para apagar na BD
-	 * 
-	 * 
+	 *
+	 *
 	 * */
 	@RequestMapping(method = RequestMethod.DELETE)
-	public @ResponseBody void deleteConfiguracao(
+	public @ResponseBody int deleteConfiguracao(
 			@RequestBody int id) throws Exception {
 
 		try {
-			configuracaoDAOImpl.deleteConfiguracao(id);
+			return configuracaoDAOImpl.deleteConfiguracao(id);
 		} catch (Exception e) {
 			throw e;
 		}

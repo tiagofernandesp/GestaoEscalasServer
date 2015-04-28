@@ -1,24 +1,27 @@
 package pt.gnr.gestaoescalas.model;
 
 import java.sql.Date;
+import java.sql.Time;
 
 public class Gratificado {
 	private int id;
-	private Date horaInicio;
-	private Date horaFim;
+	private Time horaInicio;
+	private Time horaFim;
 	private String observacao;
 	private String local;
 	private TipoGratificado tipoGratificado;
 	private Viatura viatua;
 	private String fRadio;
-	
+	private Date dataInicio;
+	private Date dataFim;
+
 	public Gratificado() {
-		this(-1, null,  null, null, null,null,null,null);
+		this(-1, null,  null, null, null,null,null,null,null,null);
 	}
 
-	public Gratificado(int id, Date horaInicio, Date horaFim,
+	public Gratificado(int id, Time horaInicio, Time horaFim,
 			String observacao, String local, TipoGratificado tipoGratificado,
-			Viatura viatua, String fRadio) {
+			Viatura viatua, String fRadio, Date dataInicio, Date dataFim) {
 		super();
 		this.id = id;
 		this.horaInicio = horaInicio;
@@ -28,6 +31,8 @@ public class Gratificado {
 		this.tipoGratificado = tipoGratificado;
 		this.viatua = viatua;
 		this.fRadio = fRadio;
+		this.dataInicio = dataInicio;
+		this.dataFim = dataFim;
 	}
 
 	public int getId() {
@@ -38,19 +43,19 @@ public class Gratificado {
 		this.id = id;
 	}
 
-	public Date getHoraInicio() {
+	public Time getHoraInicio() {
 		return horaInicio;
 	}
 
-	public void setHoraInicio(Date horaInicio) {
+	public void setHoraInicio(Time horaInicio) {
 		this.horaInicio = horaInicio;
 	}
 
-	public Date getHoraFim() {
+	public Time getHoraFim() {
 		return horaFim;
 	}
 
-	public void setHoraFim(Date horaFim) {
+	public void setHoraFim(Time horaFim) {
 		this.horaFim = horaFim;
 	}
 
@@ -86,11 +91,29 @@ public class Gratificado {
 		this.viatua = viatua;
 	}
 
-	public String getFRadio() {
+	public String getfRadio() {
 		return fRadio;
 	}
 
-	public void setFRadio(String fRadio) {
+	public void setfRadio(String fRadio) {
 		this.fRadio = fRadio;
 	}
+
+	public Date getDataInicio() {
+		return dataInicio;
+	}
+
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+
+	public Date getDataFim() {
+		return dataFim;
+	}
+
+	public void setDataFim(Date dataFim) {
+		this.dataFim = dataFim;
+	}
+
+
 }

@@ -109,7 +109,7 @@ public class PessoaDAOImpl implements PessoaDAO{
 		}
 	}
 
-	public void addPessoa(Pessoa pessoa) throws Exception {
+	public int addPessoa(Pessoa pessoa) throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
 		DataService dataService = new DataService();
@@ -133,7 +133,7 @@ public class PessoaDAOImpl implements PessoaDAO{
 			preparedStatement.setBoolean(12, pessoa.getAtivo());
 			preparedStatement.setDate(13, pessoa.getDataIngresso());
 			preparedStatement.setInt(14, pessoa.getCategoria().getId());
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -145,7 +145,7 @@ public class PessoaDAOImpl implements PessoaDAO{
 
 	}
 
-	public void deletePessoa(int id) throws Exception {
+	public int deletePessoa(int id) throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
 		DataService dataService = new DataService();
@@ -156,7 +156,7 @@ public class PessoaDAOImpl implements PessoaDAO{
 			preparedStatement = connect
 					.prepareStatement("DELETE FROM gestaoescalas.Pessoa where Id = ?");
 			preparedStatement.setInt(1, id);
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 
 		} catch (Exception e) {
 			throw e;
@@ -169,7 +169,7 @@ public class PessoaDAOImpl implements PessoaDAO{
 
 	}
 
-	public void updatePessoa(Pessoa pessoa) throws Exception {
+	public int updatePessoa(Pessoa pessoa) throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
 		DataService dataService = new DataService();
@@ -194,7 +194,7 @@ public class PessoaDAOImpl implements PessoaDAO{
 			preparedStatement.setDate(13, pessoa.getDataIngresso());
 			preparedStatement.setInt(14, pessoa.getCategoria().getId());
 			preparedStatement.setInt(15, pessoa.getId());
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {

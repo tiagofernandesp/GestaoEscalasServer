@@ -81,7 +81,7 @@ public class TipoServicoDAOImpl implements TipoServicoDAO {
 		}
 	}
 
-	public void addTipoServico(TipoServico tipoServico) throws Exception {
+	public int addTipoServico(TipoServico tipoServico) throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
 		DataService dataService = new DataService();
@@ -95,7 +95,7 @@ public class TipoServicoDAOImpl implements TipoServicoDAO {
 			preparedStatement.setInt(3, tipoServico.getHoraInicio());
 			preparedStatement.setInt(4, tipoServico.getHoraFim());
 			preparedStatement.setBoolean(5, tipoServico.getServicoMinimo());
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -107,7 +107,7 @@ public class TipoServicoDAOImpl implements TipoServicoDAO {
 
 	}
 
-	public void deleteTipoServico(int id) throws Exception {
+	public int deleteTipoServico(int id) throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
 		DataService dataService = new DataService();
@@ -117,7 +117,7 @@ public class TipoServicoDAOImpl implements TipoServicoDAO {
 			preparedStatement = connect
 					.prepareStatement("DELETE FROM gestaoescalas.tiposervico where Id = ?");
 			preparedStatement.setInt(1, id);
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -129,7 +129,7 @@ public class TipoServicoDAOImpl implements TipoServicoDAO {
 
 	}
 
-	public void updateTipoServico(TipoServico tipoServico) throws Exception {
+	public int updateTipoServico(TipoServico tipoServico) throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
 		DataService dataService = new DataService();
@@ -144,7 +144,7 @@ public class TipoServicoDAOImpl implements TipoServicoDAO {
 			preparedStatement.setInt(4, tipoServico.getHoraFim());
 			preparedStatement.setBoolean(5, tipoServico.getServicoMinimo());
 			preparedStatement.setInt(6, tipoServico.getId());
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {

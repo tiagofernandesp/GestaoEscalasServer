@@ -29,8 +29,8 @@ public class ServicoDAOImpl implements ServicoDAO{
 			while (resultSet.next()) {
 				servicos.add(new Servico(
 						resultSet.getInt("Id"),
-						resultSet.getDate("HoraInicio"),
-						resultSet.getDate("HoraFim"),
+						resultSet.getTime("HoraInicio"),
+						resultSet.getTime("HoraFim"),
 						resultSet.getDate("Data"),
 						resultSet.getString("Observacao"),
 						resultSet.getInt("Numero"),
@@ -39,7 +39,9 @@ public class ServicoDAOImpl implements ServicoDAO{
 						resultSet.getString("Itenerario"),
 						viaturaDAOImpl.getViatura(resultSet.getInt("Viatura_Id")),
 						tipoServicoDAOImpl.getTipoServico(resultSet.getInt("TipoServico_Id")),
-						resultSet.getString("FRadio")));
+						resultSet.getString("FRadio"),
+						resultSet.getDate("DataInicio"),
+						resultSet.getDate("DataFim")));
 			}
 			return servicos;
 		} catch (Exception e) {
@@ -72,8 +74,8 @@ public class ServicoDAOImpl implements ServicoDAO{
 			while (resultSet.next()) {
 				servico = new Servico(
 						resultSet.getInt("Id"),
-						resultSet.getDate("HoraInicio"),
-						resultSet.getDate("HoraFim"),
+						resultSet.getTime("HoraInicio"),
+						resultSet.getTime("HoraFim"),
 						resultSet.getDate("Data"),
 						resultSet.getString("Observacao"),
 						resultSet.getInt("Numero"),
@@ -82,7 +84,9 @@ public class ServicoDAOImpl implements ServicoDAO{
 						resultSet.getString("Itenerario"),
 						viaturaDAOImpl.getViatura(resultSet.getInt("Viatura_Id")),
 						tipoServicoDAOImpl.getTipoServico(resultSet.getInt("TipoServico_Id")),
-						resultSet.getString("FRadio"));
+						resultSet.getString("FRadio"),
+						resultSet.getDate("DataInicio"),
+						resultSet.getDate("DataFim"));
 			}
 			return servico;
 		} catch (Exception e) {
@@ -97,7 +101,7 @@ public class ServicoDAOImpl implements ServicoDAO{
 		}
 	}
 
-	public void addServico(Servico servico) throws Exception {
+	public int addServico(Servico servico) throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
 		DataService dataService = new DataService();
@@ -106,9 +110,9 @@ public class ServicoDAOImpl implements ServicoDAO{
 			connect = dataService.loadDriver();
 
 			preparedStatement = connect
-					.prepareStatement("insert into gestaoescalas.servico (HoraInicio,HoraFim,Data,Observacao,Numero,Composicao,Titulo,Itenerario,Viatura_Id,TipoServico_Id,FRadio) values ( ?, ?,?, ?,?, ?,?, ?,?, ?,?)");
-			preparedStatement.setDate(1, servico.getHoraInicio());
-			preparedStatement.setDate(2, servico.getHoraFim());
+					.prepareStatement("insert into gestaoescalas.servico (HoraInicio,HoraFim,Data,Observacao,Numero,Composicao,Titulo,Itenerario,Viatura_Id,TipoServico_Id,FRadio,DataInicio,DataFim) values ( ?, ?,?, ?,?, ?,?, ?,?, ?,?, ?,?)");
+			preparedStatement.setTime(1, servico.getHoraInicio());
+			preparedStatement.setTime(2, servico.getHoraFim());
 			preparedStatement.setDate(3, servico.getData());
 			preparedStatement.setString(4, servico.getObservacao());
 			preparedStatement.setInt(5, servico.getNumero());
@@ -118,7 +122,9 @@ public class ServicoDAOImpl implements ServicoDAO{
 			preparedStatement.setInt(9, servico.getViatua().getId());
 			preparedStatement.setInt(10, servico.getTipoServico().getId());
 			preparedStatement.setString(11, servico.getfRadio());
-			preparedStatement.executeUpdate();
+			preparedStatement.setDate(12, servico.getDataInicio());
+			preparedStatement.setDate(13, servico.getDataFim());
+			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -130,7 +136,7 @@ public class ServicoDAOImpl implements ServicoDAO{
 
 	}
 
-	public void deleteServico(int id) throws Exception {
+	public int deleteServico(int id) throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
 		DataService dataService = new DataService();
@@ -141,7 +147,7 @@ public class ServicoDAOImpl implements ServicoDAO{
 			preparedStatement = connect
 					.prepareStatement("DELETE FROM gestaoescalas.servico where Id = ?");
 			preparedStatement.setInt(1, id);
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -153,7 +159,7 @@ public class ServicoDAOImpl implements ServicoDAO{
 
 	}
 
-	public void updateServico(Servico servico) throws Exception {
+	public int updateServico(Servico servico) throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
 		DataService dataService = new DataService();
@@ -162,9 +168,9 @@ public class ServicoDAOImpl implements ServicoDAO{
 			connect = dataService.loadDriver();
 
 			preparedStatement = connect
-					.prepareStatement("update gestaoescalas.servico set HoraInicio = ?,HoraFim = ?,Data = ?,Observacao = ?,Numero = ?,Composicao = ?,Titulo = ?,Itenerario = ?,Viatura_Id = ?,TipoServico_Id = ?,FRadio = ? where Id = ?");
-			preparedStatement.setDate(1, servico.getHoraInicio());
-			preparedStatement.setDate(2, servico.getHoraFim());
+					.prepareStatement("update gestaoescalas.servico set HoraInicio = ?,HoraFim = ?,Data = ?,Observacao = ?,Numero = ?,Composicao = ?,Titulo = ?,Itenerario = ?,Viatura_Id = ?,TipoServico_Id = ?,FRadio = ?, DataInicio=?,DataFim=? where Id = ?");
+			preparedStatement.setTime(1, servico.getHoraInicio());
+			preparedStatement.setTime(2, servico.getHoraFim());
 			preparedStatement.setDate(3, servico.getData());
 			preparedStatement.setString(4, servico.getObservacao());
 			preparedStatement.setInt(5, servico.getNumero());
@@ -174,8 +180,10 @@ public class ServicoDAOImpl implements ServicoDAO{
 			preparedStatement.setInt(9, servico.getViatua().getId());
 			preparedStatement.setInt(10, servico.getTipoServico().getId());
 			preparedStatement.setString(11, servico.getfRadio());
-			preparedStatement.setInt(12, servico.getId());
-			preparedStatement.executeUpdate();
+			preparedStatement.setDate(12, servico.getDataInicio());
+			preparedStatement.setDate(13, servico.getDataFim());
+			preparedStatement.setInt(14, servico.getId());
+			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		}

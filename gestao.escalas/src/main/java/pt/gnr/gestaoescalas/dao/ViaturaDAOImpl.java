@@ -76,7 +76,7 @@ public class ViaturaDAOImpl implements ViaturaDAO{
 		}
 	}
 
-	public void addViatura(Viatura viatura) throws Exception {
+	public int addViatura(Viatura viatura) throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
 		DataService dataService = new DataService();
@@ -88,7 +88,7 @@ public class ViaturaDAOImpl implements ViaturaDAO{
 					.prepareStatement("insert into gestaoescalas.viatura (Descricao,Matricula) values ( ?, ?)");
 			preparedStatement.setString(1, viatura.getDescricao());
 			preparedStatement.setString(2, viatura.getMatricula());
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -100,7 +100,7 @@ public class ViaturaDAOImpl implements ViaturaDAO{
 
 	}
 
-	public void deleteViatura(int id) throws Exception {
+	public int deleteViatura(int id) throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
 		DataService dataService = new DataService();
@@ -111,7 +111,7 @@ public class ViaturaDAOImpl implements ViaturaDAO{
 			preparedStatement = connect
 					.prepareStatement("DELETE FROM gestaoescalas.viatura where Id = ?");
 			preparedStatement.setInt(1, id);
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 
 		} catch (Exception e) {
 			throw e;
@@ -124,7 +124,7 @@ public class ViaturaDAOImpl implements ViaturaDAO{
 
 	}
 
-	public void updateViatura(Viatura viatura) throws Exception {
+	public int updateViatura(Viatura viatura) throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
 		DataService dataService = new DataService();
@@ -137,7 +137,7 @@ public class ViaturaDAOImpl implements ViaturaDAO{
 			preparedStatement.setString(1, viatura.getDescricao());
 			preparedStatement.setString(2, viatura.getMatricula());
 			preparedStatement.setInt(3, viatura.getId());
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {

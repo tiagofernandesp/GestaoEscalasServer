@@ -91,7 +91,7 @@ public class ServicoPessoaDAOImpl implements ServicoPessoaDAO{
 		}
 	}
 
-	public void addServicoPessoa(ServicoPessoa servicoPessoa) throws Exception {
+	public int addServicoPessoa(ServicoPessoa servicoPessoa) throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
 		DataService dataService = new DataService();
@@ -106,7 +106,7 @@ public class ServicoPessoaDAOImpl implements ServicoPessoaDAO{
 			preparedStatement.setInt(3, servicoPessoa.getStatus());
 			preparedStatement.setString(4, servicoPessoa.getErro());
 			preparedStatement.setDate(5, servicoPessoa.getData());
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -118,7 +118,7 @@ public class ServicoPessoaDAOImpl implements ServicoPessoaDAO{
 
 	}
 
-	public void deleteServicoPessoa(int id) throws Exception {
+	public int deleteServicoPessoa(int id) throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
 		DataService dataService = new DataService();
@@ -129,7 +129,7 @@ public class ServicoPessoaDAOImpl implements ServicoPessoaDAO{
 			preparedStatement = connect
 					.prepareStatement("DELETE FROM gestaoescalas.servicopessoa where Id = ?");
 			preparedStatement.setInt(1, id);
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 
 		} catch (Exception e) {
 			throw e;
@@ -142,7 +142,7 @@ public class ServicoPessoaDAOImpl implements ServicoPessoaDAO{
 
 	}
 
-	public void updateServicoPessoa(ServicoPessoa servicoPessoa)
+	public int updateServicoPessoa(ServicoPessoa servicoPessoa)
 			throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
@@ -159,7 +159,7 @@ public class ServicoPessoaDAOImpl implements ServicoPessoaDAO{
 			preparedStatement.setString(4, servicoPessoa.getErro());
 			preparedStatement.setDate(5, servicoPessoa.getData());
 			preparedStatement.setInt(6, servicoPessoa.getId());
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {

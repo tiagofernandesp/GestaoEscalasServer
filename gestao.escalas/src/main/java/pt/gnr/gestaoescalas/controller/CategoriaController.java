@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 //import java.sql.SQLException;
 import pt.gnr.gestaoescalas.dao.CategoriaDAOImpl;
-
 import pt.gnr.gestaoescalas.model.Categoria;
 
 @Controller
@@ -66,12 +66,12 @@ public class CategoriaController {
 	 *
 	 * */
 	@RequestMapping(method = RequestMethod.POST)
-	public @ResponseBody void addCategoria(
+	public int addCategoria(
 			@RequestBody Categoria categoria) throws Exception {
 
 		try {
 
-			categoriaDAOImpl.addCategoria(categoria);
+			return categoriaDAOImpl.addCategoria(categoria);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -86,12 +86,12 @@ public class CategoriaController {
 	 *
 	 * */
 	@RequestMapping(method = RequestMethod.PUT)
-	public @ResponseBody void updateCategoria(
+	public @ResponseBody int updateCategoria(
 			@RequestBody Categoria categoria) throws Exception {
 
 		try {
 
-			categoriaDAOImpl.updateCategoria(categoria);
+			return categoriaDAOImpl.updateCategoria(categoria);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -107,12 +107,12 @@ public class CategoriaController {
 	 *
 	 * */
 	@RequestMapping(method = RequestMethod.DELETE)
-	public @ResponseBody void deleteCategoria(
+	public @ResponseBody int deleteCategoria(
 			@RequestBody int id) throws Exception {
 
 		try {
 
-			categoriaDAOImpl.deleteCategoria(id);
+			return categoriaDAOImpl.deleteCategoria(id);
 		} catch (Exception e) {
 			throw e;
 		}

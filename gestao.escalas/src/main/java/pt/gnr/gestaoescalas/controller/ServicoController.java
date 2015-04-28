@@ -18,9 +18,9 @@ public class ServicoController {
 
 	private ServicoDAOImpl servicoDAOImpl = new ServicoDAOImpl();
 	/**
-	 * 
+	 *
 	 * Devolve todos objetos da tabela
-	 * 
+	 *
 	 * @return Lista de objectos
 	 * */
 	@RequestMapping(method = RequestMethod.GET)
@@ -36,13 +36,13 @@ public class ServicoController {
 	}
 
 	/**
-	 * 
+	 *
 	 * Metodo devolte objecto pelo "/{id}"
-	 * 
+	 *
 	 * @param id
 	 *            do objecto
 	 * @return servico retorna um objecto
-	 * 
+	 *
 	 * */
 	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
 	public @ResponseBody Servico getServico(
@@ -58,59 +58,59 @@ public class ServicoController {
 	}
 
 	/**
-	 * 
+	 *
 	 * Adiciona novo objecto
-	 * 
+	 *
 	 * @param servico
 	 *            objecto para adicionar à BD
-	 * 
+	 *
 	 * */
 	@RequestMapping(method = RequestMethod.POST)
-	public @ResponseBody void addServico(
+	public @ResponseBody int addServico(
 			@RequestBody Servico servico) throws Exception {
 
 		try {
-			servicoDAOImpl.addServico(servico);
+			return servicoDAOImpl.addServico(servico);
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 
 	/**
-	 * 
+	 *
 	 * Modifica objecto
-	 * 
+	 *
 	 * @param servico
 	 *            objecto para modificar na BD
-	 * 
+	 *
 	 * */
 	@RequestMapping(method = RequestMethod.PUT)
-	public @ResponseBody void updateServico(
+	public @ResponseBody int updateServico(
 			@RequestBody Servico servico) throws Exception {
 		try {
-			servicoDAOImpl.updateServico(servico);
+			return servicoDAOImpl.updateServico(servico);
 		} catch (Exception e) {
 			throw e;
 		}
-		
-		
+
+
 	}
 
 	/**
-	 * 
+	 *
 	 * Apaga objecto
-	 * 
+	 *
 	 * @param servico
 	 *            objecto para apagar na BD
-	 * 
-	 * 
+	 *
+	 *
 	 * */
 	@RequestMapping(method = RequestMethod.DELETE)
-	public @ResponseBody void deleteServico(
+	public @ResponseBody int deleteServico(
 			@RequestBody int id) throws Exception {
 
 		try {
-			servicoDAOImpl.deleteServico(id);
+			return servicoDAOImpl.deleteServico(id);
 		} catch (Exception e) {
 			throw e;
 		}

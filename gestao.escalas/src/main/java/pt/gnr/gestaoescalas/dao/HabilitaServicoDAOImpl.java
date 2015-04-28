@@ -84,7 +84,7 @@ public class HabilitaServicoDAOImpl implements HabilitaServicoDAO{
 		}
 	}
 
-	public void addHabilitaServico(HabilitaServico habilitaServico)
+	public int addHabilitaServico(HabilitaServico habilitaServico)
 			throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
@@ -97,7 +97,7 @@ public class HabilitaServicoDAOImpl implements HabilitaServicoDAO{
 					.prepareStatement("insert into gestaoescalas.HabilitaServico (Pessoa_Id,TipoServico_Id) values ( ?, ?)");
 			preparedStatement.setInt(1, habilitaServico.getPessoa().getId());
 			preparedStatement.setInt(2, habilitaServico.getTipoServico().getId());
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -109,7 +109,7 @@ public class HabilitaServicoDAOImpl implements HabilitaServicoDAO{
 
 	}
 
-	public void deleteHabilitaServico(int id) throws Exception {
+	public int deleteHabilitaServico(int id) throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
 		DataService dataService = new DataService();
@@ -120,7 +120,7 @@ public class HabilitaServicoDAOImpl implements HabilitaServicoDAO{
 			preparedStatement = connect
 					.prepareStatement("DELETE FROM gestaoescalas.HabilitaServico where Id = ?");
 			preparedStatement.setInt(1, id);
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -132,7 +132,7 @@ public class HabilitaServicoDAOImpl implements HabilitaServicoDAO{
 
 	}
 
-	public void updateHabilitaServico(HabilitaServico habilitaServico)
+	public int updateHabilitaServico(HabilitaServico habilitaServico)
 			throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
@@ -146,7 +146,7 @@ public class HabilitaServicoDAOImpl implements HabilitaServicoDAO{
 			preparedStatement.setInt(1, habilitaServico.getPessoa().getId());
 			preparedStatement.setInt(2, habilitaServico.getTipoServico().getId());
 			preparedStatement.setInt(3, habilitaServico.getId());
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {

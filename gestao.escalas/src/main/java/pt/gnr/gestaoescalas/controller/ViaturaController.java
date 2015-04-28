@@ -18,9 +18,9 @@ public class ViaturaController {
 
 	private ViaturaDAOImpl viaturaDAOImpl = new ViaturaDAOImpl();
 	/**
-	 * 
+	 *
 	 * Devolve todos objetos da tabela
-	 * 
+	 *
 	 * @return Lista de objectos
 	 * */
 	@RequestMapping(method = RequestMethod.GET)
@@ -36,13 +36,13 @@ public class ViaturaController {
 	}
 
 	/**
-	 * 
+	 *
 	 * Metodo devolte objecto pelo "/{id}"
-	 * 
+	 *
 	 * @param id
 	 *            do objecto
 	 * @return viatura retorna um objecto
-	 * 
+	 *
 	 * */
 	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
 	public @ResponseBody Viatura getViatura(
@@ -59,41 +59,41 @@ public class ViaturaController {
 	}
 
 	/**
-	 * 
+	 *
 	 * Adiciona novo objecto
-	 * 
+	 *
 	 * @param viatura
 	 *            objecto para adicionar à BD
-	 * 
+	 *
 	 * @return inteiro 1 = ok & 0 = fail
 	 * */
 	@RequestMapping(method = RequestMethod.POST)
-	public @ResponseBody void addViatura(
+	public @ResponseBody int addViatura(
 			@RequestBody Viatura viatura) throws Exception {
 		try {
-			viaturaDAOImpl.addViatura(viatura);
+			return viaturaDAOImpl.addViatura(viatura);
 		} catch (Exception e) {
 			throw e;
 		}
 
-		
+
 	}
 
 	/**
-	 * 
+	 *
 	 * Modifica objecto
-	 * 
+	 *
 	 * @param viatura
 	 *            objecto para modificar na BD
-	 * 
+	 *
 	 * @return inteiro 1 = ok & 0 = fail
 	 * */
 	@RequestMapping(method = RequestMethod.PUT)
-	public @ResponseBody void updateViatura(
+	public @ResponseBody int updateViatura(
 			@RequestBody Viatura viatura) throws Exception {
-		
+
 		try {
-			viaturaDAOImpl.updateViatura(viatura);
+			return viaturaDAOImpl.updateViatura(viatura);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -101,21 +101,21 @@ public class ViaturaController {
 	}
 
 	/**
-	 * 
+	 *
 	 * Apaga objecto
-	 * 
+	 *
 	 * @param viatura
 	 *            objecto para apagar na BD
-	 * 
+	 *
 	 * @return inteiro 1 = ok & 0 = fail
-	 * 
+	 *
 	 * */
 	@RequestMapping(method = RequestMethod.DELETE)
-	public @ResponseBody void deleteViatura(
+	public @ResponseBody int deleteViatura(
 			@RequestBody int id) throws Exception {
 
 		try {
-			viaturaDAOImpl.deleteViatura(id);
+			return viaturaDAOImpl.deleteViatura(id);
 		} catch (Exception e) {
 			throw e;
 		}

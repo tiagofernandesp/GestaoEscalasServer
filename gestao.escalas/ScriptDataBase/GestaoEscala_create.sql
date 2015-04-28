@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2015-04-27 03:23:42.379
+-- Last modification date: 2015-04-28 01:40:49.73
 
 
 
@@ -24,13 +24,15 @@ CREATE TABLE Configuracao (
 -- Table Gratificado
 CREATE TABLE Gratificado (
     Id int    NOT NULL  AUTO_INCREMENT,
-    HoraInicio datetime    NOT NULL ,
-    HoraFim datetime    NOT NULL ,
+    HoraInicio time    NOT NULL ,
+    HoraFim time    NOT NULL ,
     Observacao varchar(300)    NULL ,
     Local varchar(150)    NULL ,
     TipoGratificado_Id int    NOT NULL ,
     Viatura_Id int    NOT NULL ,
     FRadio varchar(15)    NULL ,
+    DataInicio date    NOT NULL ,
+    DataFim date    NOT NULL ,
     CONSTRAINT Gratificado_pk PRIMARY KEY (Id)
 );
 
@@ -76,8 +78,8 @@ CREATE TABLE Pessoa (
 -- Table Servico
 CREATE TABLE Servico (
     Id int    NOT NULL  AUTO_INCREMENT,
-    HoraInicio datetime    NOT NULL ,
-    HoraFim datetime    NOT NULL ,
+    HoraInicio time    NOT NULL ,
+    HoraFim time    NOT NULL ,
     Data date    NOT NULL ,
     Observacao varchar(300)    NULL ,
     Numero int    NOT NULL ,
@@ -87,6 +89,8 @@ CREATE TABLE Servico (
     Viatura_Id int    NOT NULL ,
     TipoServico_Id int    NOT NULL ,
     FRadio varchar(15)    NULL ,
+    DataInicio date    NOT NULL ,
+    DataFim date    NOT NULL ,
     CONSTRAINT Servico_pk PRIMARY KEY (Id)
 );
 

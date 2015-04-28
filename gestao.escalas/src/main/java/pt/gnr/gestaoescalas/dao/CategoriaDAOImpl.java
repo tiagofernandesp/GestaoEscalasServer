@@ -10,15 +10,15 @@ import pt.gnr.gestaoescalas.model.Categoria;
 import pt.gnr.gestaoescalas.model.DataService;
 
 public class CategoriaDAOImpl implements CategoriaDAO {
-	
+
 	public CategoriaDAOImpl ()
 	{
-		
+
 	}
 	/**
-	 * 
+	 *
 	 * Devolve todos objetos da tabela
-	 * 
+	 *
 	 * @return Lista de objectos
 	 * */
 	public List<Categoria> getCategorias() throws Exception {
@@ -28,7 +28,7 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 		ResultSet resultSet = null;
 		DataService dataService = new DataService();
 		try {
-			
+
 			connect = dataService.loadDriver();
 			preparedStatement = connect
 					.prepareStatement("SELECT * from gestaoescalas.categoria;");
@@ -53,11 +53,11 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param id
 	 *            do objecto
 	 * @return categoria retorna um objecto
-	 * 
+	 *
 	 * */
 	public Categoria getCategoria(int id) throws Exception {
 
@@ -95,13 +95,13 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 	}
 
 	/**
-	 * 
+	 *
 	 * Adiciona novo objecto
-	 * 
+	 *
 	 * @param categoria
 	 *            objecto para adicionar à BD
 	 * */
-	public void addCategoria(Categoria categoria) throws Exception {
+	public int addCategoria(Categoria categoria) throws Exception {
 
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
@@ -113,8 +113,8 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 			preparedStatement = connect
 					.prepareStatement("insert into gestaoescalas.categoria (Designacao) values ( ?)");
 			preparedStatement.setString(1, categoria.getDesignacao());
-			
-			preparedStatement.executeUpdate();
+
+			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -126,14 +126,14 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 	}
 
 	/**
-	 * 
+	 *
 	 * Modifica objecto
-	 * 
+	 *
 	 * @param categoria
 	 *            objecto para modificar na BD
-	 * 
+	 *
 	 * */
-	public void updateCategoria(Categoria categoria) throws Exception {
+	public int updateCategoria(Categoria categoria) throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
 		DataService dataService = new DataService();
@@ -145,7 +145,7 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 					.prepareStatement("update gestaoescalas.categoria set Designacao = ? where Id = ?");
 			preparedStatement.setString(1, categoria.getDesignacao());
 			preparedStatement.setInt(2, categoria.getId());
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -157,14 +157,14 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 	}
 
 	/**
-	 * 
+	 *
 	 * Apaga objecto
-	 * 
+	 *
 	 * @param categoria
 	 *            objecto para apagar na BD
-	 * 
+	 *
 	 * */
-	public void deleteCategoria(int id) throws Exception {
+	public int deleteCategoria(int id) throws Exception {
 
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
@@ -177,7 +177,7 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 					.prepareStatement("DELETE FROM gestaoescalas.categoria where Id = ?");
 			preparedStatement.setInt(1, id);
 
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {

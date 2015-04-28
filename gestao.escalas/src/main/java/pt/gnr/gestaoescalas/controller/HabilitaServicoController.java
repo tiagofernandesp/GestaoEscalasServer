@@ -65,12 +65,12 @@ public class HabilitaServicoController {
 	 *
 	 * */
 	@RequestMapping(method = RequestMethod.POST)
-	public @ResponseBody void addHabilitaServico(
+	public @ResponseBody int addHabilitaServico(
 			@RequestBody HabilitaServico habilitaServico) throws Exception {
 
 		try {
 
-			habilitaServicoDAOImpl.addHabilitaServico(habilitaServico);
+			return habilitaServicoDAOImpl.addHabilitaServico(habilitaServico);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -85,12 +85,12 @@ public class HabilitaServicoController {
 	 *
 	 * */
 	@RequestMapping(method = RequestMethod.PUT)
-	public @ResponseBody void updateHabilitaServico(
+	public @ResponseBody int updateHabilitaServico(
 			@RequestBody HabilitaServico habilitaServico) throws Exception {
 
 		try {
 
-			habilitaServicoDAOImpl.updateHabilitaServico(habilitaServico);
+			return habilitaServicoDAOImpl.updateHabilitaServico(habilitaServico);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -106,12 +106,12 @@ public class HabilitaServicoController {
 	 *
 	 * */
 	@RequestMapping(method = RequestMethod.DELETE)
-	public @ResponseBody void deleteHabilitaServico(
+	public @ResponseBody int deleteHabilitaServico(
 			@RequestBody int id) throws Exception {
 
 		try {
 
-			habilitaServicoDAOImpl.deleteHabilitaServico(id);
+			return habilitaServicoDAOImpl.deleteHabilitaServico(id);
 		} catch (Exception e) {
 			throw e;
 		}

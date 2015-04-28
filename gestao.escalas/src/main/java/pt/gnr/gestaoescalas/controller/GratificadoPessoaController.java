@@ -17,11 +17,11 @@ import pt.gnr.gestaoescalas.model.GratificadoPessoa;
 public class GratificadoPessoaController {
 
 	private GratificadoPessoaDAOImpl gratificadoPessoaDAOImpl = new GratificadoPessoaDAOImpl();
-	
+
 	/**
-	 * 
+	 *
 	 * Devolve todos objetos da tabela
-	 * 
+	 *
 	 * @return Lista de objectos
 	 * */
 	@RequestMapping(method = RequestMethod.GET)
@@ -37,13 +37,13 @@ public class GratificadoPessoaController {
 	}
 
 	/**
-	 * 
+	 *
 	 * Metodo devolte objecto pelo "/{id}"
-	 * 
+	 *
 	 * @param id
 	 *            do objecto
 	 * @return gratificadoPessoa retorna um objecto
-	 * 
+	 *
 	 * */
 	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
 	public @ResponseBody GratificadoPessoa getGratificadoPessoa(
@@ -59,58 +59,58 @@ public class GratificadoPessoaController {
 	}
 
 	/**
-	 * 
+	 *
 	 * Adiciona novo objecto
-	 * 
+	 *
 	 * @param gratificadoPessoa
 	 *            objecto para adicionar à BD
-	 * 
+	 *
 	 * */
 	@RequestMapping(method = RequestMethod.POST)
-	public @ResponseBody void addGratificadoPessoa(
+	public @ResponseBody int addGratificadoPessoa(
 			@RequestBody GratificadoPessoa gratificadoPessoa) throws Exception {
 
 		try {
-			gratificadoPessoaDAOImpl.addGratificadoPessoa(gratificadoPessoa);
+			return gratificadoPessoaDAOImpl.addGratificadoPessoa(gratificadoPessoa);
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 
 	/**
-	 * 
+	 *
 	 * Modifica objecto
-	 * 
+	 *
 	 * @param gratificadoPessoa
 	 *            objecto para modificar na BD
-	 * 
+	 *
 	 * */
 	@RequestMapping(method = RequestMethod.PUT)
-	public @ResponseBody void updateGratificadoPessoa(
+	public @ResponseBody int updateGratificadoPessoa(
 			@RequestBody GratificadoPessoa gratificadoPessoa) throws Exception {
-	
+
 		try {
-			gratificadoPessoaDAOImpl.updateGratificadoPessoa(gratificadoPessoa);
+			return gratificadoPessoaDAOImpl.updateGratificadoPessoa(gratificadoPessoa);
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 
 	/**
-	 * 
+	 *
 	 * Apaga objecto
-	 * 
+	 *
 	 * @param gratificadoPessoa
 	 *            objecto para apagar na BD
-	 * 
-	 * 
+	 *
+	 *
 	 * */
 	@RequestMapping(method = RequestMethod.DELETE)
-	public @ResponseBody void deleteGratificadoPessoa(
+	public @ResponseBody int deleteGratificadoPessoa(
 			@RequestBody int id) throws Exception {
 
 		try {
-			gratificadoPessoaDAOImpl.deleteGratificadoPessoa(id);
+			return gratificadoPessoaDAOImpl.deleteGratificadoPessoa(id);
 		} catch (Exception e) {
 			throw e;
 		}

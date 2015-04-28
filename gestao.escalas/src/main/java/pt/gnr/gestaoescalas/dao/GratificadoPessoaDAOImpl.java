@@ -90,7 +90,7 @@ public class GratificadoPessoaDAOImpl implements GratificadoPessoaDAO{
 		}
 	}
 
-	public void addGratificadoPessoa(GratificadoPessoa gratificadoPessoa)
+	public int addGratificadoPessoa(GratificadoPessoa gratificadoPessoa)
 			throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
@@ -106,7 +106,7 @@ public class GratificadoPessoaDAOImpl implements GratificadoPessoaDAO{
 			preparedStatement.setInt(3, gratificadoPessoa.getStatus());
 			preparedStatement.setString(4, gratificadoPessoa.getErro());
 			preparedStatement.setDate(5, gratificadoPessoa.getData());
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -118,7 +118,7 @@ public class GratificadoPessoaDAOImpl implements GratificadoPessoaDAO{
 
 	}
 
-	public void deleteGratificadoPessoa(int id) throws Exception {
+	public int deleteGratificadoPessoa(int id) throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
 		DataService dataService = new DataService();
@@ -129,7 +129,7 @@ public class GratificadoPessoaDAOImpl implements GratificadoPessoaDAO{
 			preparedStatement = connect
 					.prepareStatement("DELETE FROM gestaoescalas.gratificadopessoa where Id = ?");
 			preparedStatement.setInt(1, id);
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 
 		} catch (Exception e) {
 			throw e;
@@ -142,7 +142,7 @@ public class GratificadoPessoaDAOImpl implements GratificadoPessoaDAO{
 
 	}
 
-	public void updateGratificadoPessoa(GratificadoPessoa gratificadoPessoa)
+	public int updateGratificadoPessoa(GratificadoPessoa gratificadoPessoa)
 			throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
@@ -159,7 +159,7 @@ public class GratificadoPessoaDAOImpl implements GratificadoPessoaDAO{
 			preparedStatement.setString(4, gratificadoPessoa.getErro());
 			preparedStatement.setDate(5, gratificadoPessoa.getData());
 			preparedStatement.setInt(6, gratificadoPessoa.getId());
-			preparedStatement.executeUpdate();
+			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {
