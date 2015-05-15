@@ -62,6 +62,50 @@ public class PessoaDAOImpl implements PessoaDAO{
 		}
 	}
 
+	public List<Pessoa> getPessoasAtivas() throws Exception {
+		List<Pessoa> pessoas = new ArrayList<Pessoa>();
+		Connection connect = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		DataService dataService = new DataService();
+		try {
+
+			connect = dataService.loadDriver();
+			preparedStatement = connect
+					.prepareStatement("SELECT * from gestaoescalas.Pessoa where Ativo = 1;");
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				pessoas.add(new Pessoa(
+						resultSet.getInt("Id"),
+						resultSet.getString("PNome"),
+						resultSet.getString("UNome"),
+						resultSet.getString("Apelido"),
+						resultSet.getString("Telemovel"),
+						resultSet.getString("Telefone"),
+						resultSet.getString("CP"),
+						resultSet.getString("Rua"),
+						resultSet.getInt("Porta"),
+						resultSet.getString("Cidade"),
+						resultSet.getString("NumeroGNR"),
+						resultSet.getString("NumeroPosto"),
+						resultSet.getBoolean("Ativo"),
+						resultSet.getDate("DataIngresso"),
+						categoriaDAOImpl.getCategoria(resultSet.getInt("Categoria_Id"))
+						));
+
+			}
+			return pessoas;
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if(resultSet!=null)
+				resultSet.close();
+			if(preparedStatement!=null)
+				preparedStatement.close();
+			if(connect!=null)
+				dataService.close(connect);
+		}
+	}
 	public Pessoa getPessoa(int id) throws Exception {
 		Pessoa Pessoa = null;
 		Connection connect = null;

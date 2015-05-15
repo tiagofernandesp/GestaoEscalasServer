@@ -34,7 +34,22 @@ public class PessoaController {
 			throw e;
 		}
 	}
-
+	/**
+	 *
+	 * Devolve todos objetos da tabela
+	 *
+	 * @return Lista de objectos
+	 * */
+	@RequestMapping(value="/ativa", method = RequestMethod.GET)
+	public @ResponseBody List<Pessoa> getPessoasAtivas()
+			throws Exception {
+		try {
+			List<Pessoa> pessoas = pessoaDAOImpl.getPessoasAtivas();
+			return pessoas;
+		} catch (Exception e) {
+			throw e;
+		}
+	}
 	/**
 	 *
 	 * Metodo devolte objecto pelo "/{id}"

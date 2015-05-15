@@ -10,18 +10,18 @@ public class DataService {
 	private static final String Driver = "com.mysql.jdbc.Driver";
 	private static final String ConnectionString = "jdbc:mysql://localhost/gestaoescalas?";
 	private static final String user = "tiago";
-	private static final String pwd = "tiago";
+	private static final String pwd = "tiago1990";
 
 	public DataService() {
 	}
 
 	/**
 	 * to load the database base driver
-	 * 
+	 *
 	 * @return a database conexão
 	 * @throws SQLException
 	 *             envia sql exception em caso de erro
-	 * 
+	 *
 	 */
 	// @Bean
 	public Connection loadDriver() throws SQLException {
@@ -35,7 +35,7 @@ public class DataService {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param con
 	 *            connection
 	 * @throws SQLException
