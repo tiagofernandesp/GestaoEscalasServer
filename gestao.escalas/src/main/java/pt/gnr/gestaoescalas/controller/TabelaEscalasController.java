@@ -2,6 +2,7 @@ package pt.gnr.gestaoescalas.controller;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -34,20 +35,32 @@ public class TabelaEscalasController {
 	public @ResponseBody List<PessoaEscala> getServicoPessoas(@PathVariable("date") Date date)
 			throws Exception {
 		try {
-			List<PessoaEscala> pessoasEscalas = null;
+			List<PessoaEscala> pessoasEscalas = new ArrayList<PessoaEscala>();;
 			List<Pessoa> pessoasAtivasList = pessoaDAOImpl.getPessoasAtivas();
 			String dt = date.toString();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Calendar c = Calendar.getInstance();
 			c.setTime(sdf.parse(dt));
-
+			c.add(Calendar.DATE, 7);
+			Date finalDate =  new Date(c.getTimeInMillis());
+			List<ServicoPessoa> servicoPessoas = servicoPessoaDAOImpl.getServicoPessoasbetweenDates(date, finalDate);
 			for (int i = 0; i < pessoasAtivasList.size(); i++) {
+				c.setTime(sdf.parse(dt));
 				PessoaEscala pessoaEscala = new PessoaEscala();
+				pessoaEscala.setPessoa(pessoasAtivasList.get(i));
 
-				List<ServicoPessoa> servicoPessoas = servicoPessoaDAOImpl.getServicoPessoasByDataPessoa((Date)sdf.parse(sdf.format(c.getTime())), 1);
-				c.add(Calendar.DATE, 1);
-				pessoaEscala.setDay1(servicoPessoas.get(0));
-				pessoaEscala.setPessoa(pessoasAtivasList.get(0));
+				for(int j=0;j < 7;j++)
+				{
+					Date newDate =  new Date(c.getTimeInMillis());
+					pessoaEscala.setEscalasById(null, j);
+					for(ServicoPessoa sp : servicoPessoas){
+				        if(sp.getData().equals(newDate) && sp.getPessoa().getId()==pessoaEscala.getPessoa().getId())
+				        {
+				        	pessoaEscala.setEscalasById(sp, j);
+				        }
+				    }
+					c.add(Calendar.DATE, 1);
+				}
 				pessoasEscalas.add(pessoaEscala);
 			}
 

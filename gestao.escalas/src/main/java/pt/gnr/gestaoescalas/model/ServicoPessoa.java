@@ -9,8 +9,8 @@ public class ServicoPessoa {
 	private int Status;
 	private String erro;
 	private Date data;
-	
-	
+
+
 	public ServicoPessoa() {
 		this(-1, null,null, 0, null,null);
 	}
@@ -22,7 +22,7 @@ public class ServicoPessoa {
 		this.id = id;
 		this.servico = servico;
 		this.pessoa = pessoa;
-		Status = status;
+		this.Status = status;
 		this.erro = erro;
 		this.data = data;
 	}
@@ -86,6 +86,6 @@ public class ServicoPessoa {
 	public void setData(Date data) {
 		this.data = data;
 	}
-	
-	
+
+
 }

@@ -54,7 +54,7 @@ public class ServicoPessoaDAOImpl implements ServicoPessoaDAO{
 		}
 
 	}
-	public List<ServicoPessoa> getServicoPessoasByDataPessoa (Date data, Integer idPessoa) throws Exception {
+	public List<ServicoPessoa> getServicoPessoasByDataPessoa (Date data, int idPessoa) throws Exception {
 		List<ServicoPessoa> servicoPessoas = new ArrayList<ServicoPessoa>();
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
@@ -64,7 +64,7 @@ public class ServicoPessoaDAOImpl implements ServicoPessoaDAO{
 
 			connect = dataService.loadDriver();
 			preparedStatement = connect
-					.prepareStatement("SELECT * from gestaoescalas.servicopessoa where Pessoa_Id=? and Data=?;");
+					.prepareStatement("SELECT * from gestaoescalas.servicopessoa where Pessoa_Id = ? and Data = ?;");
 			preparedStatement.setInt(1, idPessoa);
 			preparedStatement.setDate(2, data);
 			resultSet = preparedStatement.executeQuery();
@@ -91,6 +91,42 @@ public class ServicoPessoaDAOImpl implements ServicoPessoaDAO{
 
 	}
 
+	public List<ServicoPessoa> getServicoPessoasbetweenDates(Date dataI, Date dataF) throws Exception {
+		List<ServicoPessoa> servicoPessoas = new ArrayList<ServicoPessoa>();
+		Connection connect = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		DataService dataService = new DataService();
+		try {
+
+			connect = dataService.loadDriver();
+			preparedStatement = connect
+					.prepareStatement("SELECT * from gestaoescalas.servicopessoa where Data >= ? and Data <= ?;");
+			preparedStatement.setDate(1, dataI);
+			preparedStatement.setDate(2, dataF);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				servicoPessoas.add(new ServicoPessoa(
+						resultSet.getInt("Id"),
+						servicoDAOImpl.getServico(resultSet.getInt("Servico_Id")),
+						pessoaDAOImpl.getPessoa(resultSet.getInt("Pessoa_Id")),
+						resultSet.getInt("Status"),
+						resultSet.getString("Erro"),
+						resultSet.getDate("Data")));
+			}
+			return servicoPessoas;
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if(resultSet!=null)
+				resultSet.close();
+			if(preparedStatement!=null)
+				preparedStatement.close();
+			if(connect!=null)
+				dataService.close(connect);
+		}
+
+	}
 	public ServicoPessoa getServicoPessoa(int id) throws Exception {
 		ServicoPessoa servicoPessoa = null;
 		Connection connect = null;
