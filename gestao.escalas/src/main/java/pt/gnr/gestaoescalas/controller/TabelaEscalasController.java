@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import pt.gnr.gestaoescalas.dao.ListaPrioridadesDAOImpl;
 import pt.gnr.gestaoescalas.dao.PessoaDAOImpl;
 import pt.gnr.gestaoescalas.dao.ServicoPessoaDAOImpl;
+import pt.gnr.gestaoescalas.model.LinhaListaPrioridade;
 import pt.gnr.gestaoescalas.model.Pessoa;
 import pt.gnr.gestaoescalas.model.PessoaEscala;
 import pt.gnr.gestaoescalas.model.ServicoPessoa;
@@ -24,6 +26,7 @@ public class TabelaEscalasController {
 
 	private ServicoPessoaDAOImpl servicoPessoaDAOImpl = new ServicoPessoaDAOImpl();
 	private PessoaDAOImpl pessoaDAOImpl = new PessoaDAOImpl();
+	private ListaPrioridadesDAOImpl listaPrioridadesDAOImpl = new ListaPrioridadesDAOImpl();
 
 	/**
 	 *
@@ -70,5 +73,21 @@ public class TabelaEscalasController {
 		}
 	}
 
+	/**
+	 *
+	 * Devolve Lista de prioridades
+	 *
+	 * @return Lista de objectos
+	 * */
+	@RequestMapping(method = RequestMethod.GET, value = "/{date}/{id}")
+	public @ResponseBody List<LinhaListaPrioridade> getListaPrioridade(@PathVariable("date") Date date, @PathVariable("id") int id)
+			throws Exception {
+		try {
+			List<LinhaListaPrioridade> listaPrioridade=  listaPrioridadesDAOImpl.getListByIdDate(date, id);
+			return listaPrioridade;
+		} catch (Exception e) {
+			throw e;
+		}
+	}
 	}
 

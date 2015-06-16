@@ -18,6 +18,40 @@ public class HabilitaServicoDAOImpl implements HabilitaServicoDAO{
 	{
 
 	}
+/*
+	public List<Integer> getHabilitaServicosByTServico (int tipoService_Id) throws Exception{
+		List<Integer> listPersonId = new ArrayList<Integer>();
+		Connection connect = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		DataService dataService = new DataService();
+		try {
+
+			connect = dataService.loadDriver();
+
+			preparedStatement = connect
+					.prepareStatement("SELECT Pessoa_Id FROM gestaoescalas.HabilitaServico AS HS "
+							+ "INNER JOIN (SELECT Id FROM gestaoescalas.pessoa where Ativo = '1' )  AS P "
+							+ "ON HS.Pessoa_Id=P.Id where TipoServico_Id = ?;");
+			preparedStatement.setInt(1, tipoService_Id);
+
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				listPersonId.add(
+						resultSet.getInt("Pessoa_Id"));
+			}
+			return listPersonId;
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if(resultSet!=null)
+				resultSet.close();
+			if(preparedStatement!=null)
+				preparedStatement.close();
+			if(connect!=null)
+				dataService.close(connect);
+		}
+	}*/
 
 	public List<HabilitaServico> getHabilitaServicos() throws Exception {
 		List<HabilitaServico> habilitaServicos = new ArrayList<HabilitaServico>();
