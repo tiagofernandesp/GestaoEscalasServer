@@ -1,5 +1,6 @@
 package pt.gnr.gestaoescalas.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,25 @@ public class ServicoController {
 			throws Exception {
 		try {
 			List<Servico> servicos = servicoDAOImpl.getServicos();
+			return servicos;
+		} catch (Exception e) {
+			throw e;
+		}
+
+	}
+
+	/**
+	 *
+	 * Devolve todos objetos da tabela por data
+	 *
+	 * @return Lista de objectos
+	 * */
+
+	@RequestMapping(method = RequestMethod.GET, value = "/date/{data}")
+	public @ResponseBody List<Servico> getServicosByDate(@PathVariable("data") Date data)
+			throws Exception {
+		try {
+			List<Servico> servicos = servicoDAOImpl.getServicosByDate(data);
 			return servicos;
 		} catch (Exception e) {
 			throw e;
@@ -107,10 +127,10 @@ public class ServicoController {
 	 * */
 	@RequestMapping(method = RequestMethod.DELETE)
 	public @ResponseBody int deleteServico(
-			@RequestBody int id) throws Exception {
+			@RequestBody Servico s) throws Exception {
 
 		try {
-			return servicoDAOImpl.deleteServico(id);
+			return servicoDAOImpl.deleteServico(s.getId());
 		} catch (Exception e) {
 			throw e;
 		}

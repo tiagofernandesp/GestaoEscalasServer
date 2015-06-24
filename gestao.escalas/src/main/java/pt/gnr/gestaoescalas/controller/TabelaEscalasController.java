@@ -38,6 +38,7 @@ public class TabelaEscalasController {
 	public @ResponseBody List<PessoaEscala> getServicoPessoas(@PathVariable("date") Date date)
 			throws Exception {
 		try {
+			ServicoPessoa spNull=new ServicoPessoa();
 			List<PessoaEscala> pessoasEscalas = new ArrayList<PessoaEscala>();;
 			List<Pessoa> pessoasAtivasList = pessoaDAOImpl.getPessoasAtivas();
 			String dt = date.toString();
@@ -55,7 +56,7 @@ public class TabelaEscalasController {
 				for(int j=0;j < 7;j++)
 				{
 					Date newDate =  new Date(c.getTimeInMillis());
-					pessoaEscala.setEscalasById(null, j);
+					pessoaEscala.setEscalasById(spNull, j);
 					for(ServicoPessoa sp : servicoPessoas){
 				        if(sp.getData().equals(newDate) && sp.getPessoa().getId()==pessoaEscala.getPessoa().getId())
 				        {

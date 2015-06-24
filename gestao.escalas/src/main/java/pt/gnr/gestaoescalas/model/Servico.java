@@ -13,7 +13,7 @@ public class Servico {
 	private String composicao;
 	private String titulo;
 	private String itenerario;
-	private Viatura viatua;
+	private Viatura viatura;
 	private TipoServico tipoServico;
 	private String fRadio;
 	private Date dataInicio;
@@ -25,7 +25,7 @@ public class Servico {
 
 	public Servico(int id, Time horaInicio, Time horaFim, Date data,
 			String observacao, int numero, String composicao, String titulo,
-			String itenerario, Viatura viatua, TipoServico tipoServico,
+			String itenerario, Viatura viatura, TipoServico tipoServico,
 			String fRadio, Date dataInicio,Date dataFim) {
 		super();
 		this.id = id;
@@ -37,7 +37,7 @@ public class Servico {
 		this.composicao = composicao;
 		this.titulo = titulo;
 		this.itenerario = itenerario;
-		this.viatua = viatua;
+		this.viatura = viatura;
 		this.tipoServico = tipoServico;
 		this.fRadio = fRadio;
 		this.dataInicio= dataInicio;
@@ -117,12 +117,12 @@ public class Servico {
 		this.itenerario = itenerario;
 	}
 
-	public Viatura getViatua() {
-		return viatua;
+	public Viatura getViatura() {
+		return viatura;
 	}
 
-	public void setViatua(Viatura viatua) {
-		this.viatua = viatua;
+	public void setViatura(Viatura viatura) {
+		this.viatura = viatura;
 	}
 
 	public TipoServico getTipoServico() {
