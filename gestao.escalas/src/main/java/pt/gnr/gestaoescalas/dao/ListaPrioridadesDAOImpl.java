@@ -28,8 +28,7 @@ public class ListaPrioridadesDAOImpl implements ListaPrioridadesDAO{
 
 			connect = dataService.loadDriver();
 			preparedStatement = connect
-					.prepareStatement(" SELECT * FROM gestaoescalas.pessoa AS P INNER JOIN (SELECT HS.Pessoa_Id, S.Data FROM gestaoescalas.HabilitaServico AS HS LEFT JOIN (SELECT max(Data) as Data , Pessoa_Id FROM gestaoescalas.ServicoPessoa WHERE Servico_Id = ? AND Data < ? GROUP BY Pessoa_Id) AS S ON S.Pessoa_Id = HS.Pessoa_Id where HS.TipoServico_Id = ?) AS N "
-							+ "ON P.Id=N.Pessoa_Id where Ativo = '1' ORDER BY Data ASC;");
+					.prepareStatement("SELECT * FROM gestaoescalas.pessoa AS P INNER JOIN (SELECT HS.Pessoa_Id, S.Data FROM gestaoescalas.HabilitaServico AS HS LEFT JOIN (SELECT max(Data) as Data , Pessoa_Id , Servico_Id FROM gestaoescalas.ServicoPessoa AS G INNER JOIN ( SELECT Id FROM gestaoescalas.Servico WHERE TipoServico_Id = ? ) AS SE ON SE.Id=G.Servico_Id WHERE Data < ? GROUP BY Pessoa_Id) AS S ON S.Pessoa_Id = HS.Pessoa_Id where HS.TipoServico_Id = ?) AS N ON P.Id=N.Pessoa_Id where Ativo = '1' ORDER BY Data ASC;");
 			preparedStatement.setInt(1, id);
 			preparedStatement.setDate(2, data);
 			preparedStatement.setInt(3, id);

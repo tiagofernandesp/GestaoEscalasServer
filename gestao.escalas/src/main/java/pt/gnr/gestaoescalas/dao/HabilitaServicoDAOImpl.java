@@ -52,6 +52,40 @@ public class HabilitaServicoDAOImpl implements HabilitaServicoDAO{
 				dataService.close(connect);
 		}
 	}*/
+	public HabilitaServico getByTServicoAndPessoa (int tServico_Id,int pessoa_Id) throws Exception {
+		HabilitaServico habilitaServico = null;
+		Connection connect = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		DataService dataService = new DataService();
+		try {
+
+			connect = dataService.loadDriver();
+
+			preparedStatement = connect
+					.prepareStatement("SELECT * from gestaoescalas.HabilitaServico where Pessoa_Id= ? AND TipoServico_Id = ?");
+			preparedStatement.setInt(1, pessoa_Id);
+			preparedStatement.setInt(2, tServico_Id);
+
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				habilitaServico = new HabilitaServico(
+						resultSet.getInt("Id"),
+						pessoaDAOImpl.getPessoa(resultSet.getInt("Pessoa_Id")),
+						tipoServicoDAOImpl.getTipoServico(resultSet.getInt("TipoServico_Id")));
+			}
+			return habilitaServico;
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if(resultSet!=null)
+				resultSet.close();
+			if(preparedStatement!=null)
+				preparedStatement.close();
+			if(connect!=null)
+				dataService.close(connect);
+		}
+	}
 
 	public List<HabilitaServico> getHabilitaServicos() throws Exception {
 		List<HabilitaServico> habilitaServicos = new ArrayList<HabilitaServico>();
@@ -64,6 +98,38 @@ public class HabilitaServicoDAOImpl implements HabilitaServicoDAO{
 			connect = dataService.loadDriver();
 			preparedStatement = connect
 					.prepareStatement("SELECT * from gestaoescalas.HabilitaServico;");
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				habilitaServicos.add(new HabilitaServico(
+						resultSet.getInt("Id"),
+						pessoaDAOImpl.getPessoa(resultSet.getInt("Pessoa_Id")),
+						tipoServicoDAOImpl.getTipoServico(resultSet.getInt("TipoServico_Id"))));
+			}
+			return habilitaServicos;
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if(resultSet!=null)
+				resultSet.close();
+			if(preparedStatement!=null)
+				preparedStatement.close();
+			if(connect!=null)
+				dataService.close(connect);
+		}
+	}
+
+	public List<HabilitaServico> getHabilitaServicosByPerson(int id) throws Exception {
+		List<HabilitaServico> habilitaServicos = new ArrayList<HabilitaServico>();
+		Connection connect = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		DataService dataService = new DataService();
+		try {
+
+			connect = dataService.loadDriver();
+			preparedStatement = connect
+					.prepareStatement("SELECT * from gestaoescalas.HabilitaServico where Pessoa_Id = ?;");
+			preparedStatement.setInt(1, id);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				habilitaServicos.add(new HabilitaServico(

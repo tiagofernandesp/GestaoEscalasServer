@@ -1,5 +1,6 @@
 package pt.gnr.gestaoescalas.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -10,13 +11,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import pt.gnr.gestaoescalas.dao.HabilitaServicoDAOImpl;
+import pt.gnr.gestaoescalas.dao.PessoaDAOImpl;
 import pt.gnr.gestaoescalas.model.HabilitaServico;
+import pt.gnr.gestaoescalas.model.TipoServico;
 
 @Controller
 @RequestMapping("/habilitaservico")
 public class HabilitaServicoController {
 
 	private HabilitaServicoDAOImpl habilitaServicoDAOImpl = new HabilitaServicoDAOImpl();
+	private PessoaDAOImpl pessoaDAOImpl = new PessoaDAOImpl();
 	/**
 	 *
 	 * Devolve todos objetos da tabela
@@ -34,6 +38,75 @@ public class HabilitaServicoController {
 		}
 	}
 
+	/**
+	 *
+	 * Metodo devolte objectoS pelo "/{id }" da pessoa
+	 *
+	 * @param id
+	 *            do objecto
+	 * @return HabilitaServico retorna lista de objectos
+	 *
+	 * */
+	@RequestMapping(method = RequestMethod.GET, value = "/pessoa/{id}")
+	public @ResponseBody List<TipoServico> getHabilitaServicoByPerson(
+			@PathVariable("id") int id) throws Exception {
+
+		try {
+			List<HabilitaServico> habilitaServicos = habilitaServicoDAOImpl.getHabilitaServicosByPerson(id);
+			List<TipoServico> tipoServico = new ArrayList<TipoServico>();
+			for(HabilitaServico hServico : habilitaServicos) {
+				tipoServico.add(hServico.getTipoServico());
+			}
+			return tipoServico;
+
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	/**
+	 *
+	 * Adiciona novo objecto
+	 *
+	 * @param HabilitaServico
+	 *            objecto para adicionar à BD
+	 *
+	 * */
+	@RequestMapping(method = RequestMethod.PUT, value = "/pessoa/{id}")
+	public @ResponseBody int updateHabilitaServicos(
+			@PathVariable("id") int id ,@RequestBody  List<TipoServico> tipoServicos) throws Exception {
+
+		try {
+			boolean b = false;
+			HabilitaServico hServico = new HabilitaServico();
+			List<TipoServico> oldTipoServicos = getHabilitaServicoByPerson(id);
+			for(TipoServico tServico : tipoServicos) {
+				hServico = habilitaServicoDAOImpl.getByTServicoAndPessoa(tServico.getId(), id);
+			    if (hServico==null) {
+			    	hServico = new HabilitaServico();
+			    	hServico.setPessoa(pessoaDAOImpl.getPessoa(id));
+			    	hServico.setTipoServico(tServico);
+			    	habilitaServicoDAOImpl.addHabilitaServico(hServico);
+				}
+			}
+
+			for(TipoServico oldTServico : oldTipoServicos) {
+				for(TipoServico tServico : tipoServicos) {
+					if (oldTServico.getId()==tServico.getId()) {
+						b=true;
+					}
+				}
+				if (b==false) {
+					hServico = habilitaServicoDAOImpl.getByTServicoAndPessoa(oldTServico.getId(), id);
+					habilitaServicoDAOImpl.deleteHabilitaServico(hServico.getId());
+				}
+				b=false;
+			}
+			return 1;
+		} catch (Exception e) {
+			throw e;
+		}
+	}
 	/**
 	 *
 	 * Metodo devolte objecto pelo "/{id}"
