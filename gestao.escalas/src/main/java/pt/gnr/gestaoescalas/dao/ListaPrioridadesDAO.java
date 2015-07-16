@@ -7,4 +7,5 @@ import pt.gnr.gestaoescalas.model.LinhaListaPrioridade;
 
 public interface ListaPrioridadesDAO {
 	public List<LinhaListaPrioridade> getListByIdDate (Date data, int id) throws Exception;
+	public List<LinhaListaPrioridade> getListGratificadoByIdDate (Date data, int id) throws Exception;
 }

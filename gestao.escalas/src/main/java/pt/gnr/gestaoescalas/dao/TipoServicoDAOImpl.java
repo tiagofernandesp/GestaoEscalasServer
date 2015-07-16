@@ -24,12 +24,14 @@ public class TipoServicoDAOImpl implements TipoServicoDAO {
 					.prepareStatement("SELECT * from gestaoescalas.tiposervico;");
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				tipoServicos.add(new TipoServico(resultSet.getInt("Id"),
-						resultSet.getString("Nome"), resultSet
-								.getString("Prefixo"), resultSet
-								.getInt("HoraInicio"), resultSet
-								.getInt("HoraFim"), resultSet
-								.getBoolean("ServicoMinimo")));
+				tipoServicos.add(new TipoServico(
+						resultSet.getInt("Id"),
+						resultSet.getString("Nome"),
+						resultSet.getString("Prefixo"),
+						resultSet.getInt("HoraInicio"),
+						resultSet.getInt("HoraFim"),
+						resultSet.getBoolean("ServicoMinimo"),
+						resultSet.getBoolean("ServicoRepetitivo")));
 			}
 			return tipoServicos;
 		} catch (Exception e) {
@@ -66,7 +68,8 @@ public class TipoServicoDAOImpl implements TipoServicoDAO {
 						resultSet.getString("Prefixo"),
 						resultSet.getInt("HoraInicio"),
 						resultSet.getInt("HoraFim"),
-						resultSet.getBoolean("ServicoMinimo"));
+						resultSet.getBoolean("ServicoMinimo"),
+						resultSet.getBoolean("ServicoRepetitivo"));
 			}
 			return tipoServico;
 		} catch (Exception e) {
@@ -80,6 +83,41 @@ public class TipoServicoDAOImpl implements TipoServicoDAO {
 				dataService.close(connect);
 		}
 	}
+	public List<TipoServico> getTipoServicoMinimos() throws Exception {
+		List<TipoServico> tipoServicos = new ArrayList<TipoServico>();
+		Connection connect = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		DataService dataService = new DataService();
+		try {
+
+			connect = dataService.loadDriver();
+			preparedStatement = connect
+					.prepareStatement("SELECT * from gestaoescalas.tiposervico where ServicoMinimo= 1");
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				tipoServicos.add(new TipoServico(
+						resultSet.getInt("Id"),
+						resultSet.getString("Nome"),
+						resultSet.getString("Prefixo"),
+						resultSet.getInt("HoraInicio"),
+						resultSet.getInt("HoraFim"),
+						resultSet.getBoolean("ServicoMinimo"),
+						resultSet.getBoolean("ServicoRepetitivo")));
+			}
+			return tipoServicos;
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (resultSet != null)
+				resultSet.close();
+			if (preparedStatement != null)
+				preparedStatement.close();
+			if (connect != null)
+				dataService.close(connect);
+		}
+
+	}
 
 	public int addTipoServico(TipoServico tipoServico) throws Exception {
 		Connection connect = null;
@@ -89,12 +127,13 @@ public class TipoServicoDAOImpl implements TipoServicoDAO {
 
 			connect = dataService.loadDriver();
 			preparedStatement = connect
-					.prepareStatement("insert into gestaoescalas.tiposervico (Nome,Prefixo,HoraInicio,HoraFim,ServicoMinimo) values ( ?, ?,?, ?,?)");
+					.prepareStatement("insert into gestaoescalas.tiposervico (Nome,Prefixo,HoraInicio,HoraFim,ServicoMinimo,ServicoRepetitivo) values ( ?, ?,?, ?,?,?)");
 			preparedStatement.setString(1, tipoServico.getNome());
 			preparedStatement.setString(2, tipoServico.getPrefixo());
 			preparedStatement.setInt(3, tipoServico.getHoraInicio());
 			preparedStatement.setInt(4, tipoServico.getHoraFim());
 			preparedStatement.setBoolean(5, tipoServico.getServicoMinimo());
+			preparedStatement.setBoolean(6, tipoServico.getServicoRepetitivo());
 			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;
@@ -137,13 +176,14 @@ public class TipoServicoDAOImpl implements TipoServicoDAO {
 
 			connect = dataService.loadDriver();
 			preparedStatement = connect
-					.prepareStatement("update gestaoescalas.tiposervico set Nome = ?, Prefixo = ?, HoraInicio = ?, HoraFim = ?, ServicoMinimo = ? where Id = ?");
+					.prepareStatement("update gestaoescalas.tiposervico set Nome = ?, Prefixo = ?, HoraInicio = ?, HoraFim = ?, ServicoMinimo = ?, ServicoRepetitivo = ? where Id = ?");
 			preparedStatement.setString(1, tipoServico.getNome());
 			preparedStatement.setString(2, tipoServico.getPrefixo());
 			preparedStatement.setInt(3, tipoServico.getHoraInicio());
 			preparedStatement.setInt(4, tipoServico.getHoraFim());
 			preparedStatement.setBoolean(5, tipoServico.getServicoMinimo());
-			preparedStatement.setInt(6, tipoServico.getId());
+			preparedStatement.setBoolean(6, tipoServico.getServicoRepetitivo());
+			preparedStatement.setInt(7, tipoServico.getId());
 			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			throw e;

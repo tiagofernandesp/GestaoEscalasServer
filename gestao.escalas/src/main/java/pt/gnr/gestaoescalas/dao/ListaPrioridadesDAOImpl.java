@@ -52,4 +52,37 @@ public class ListaPrioridadesDAOImpl implements ListaPrioridadesDAO{
 
 	}
 
+	public List<LinhaListaPrioridade> getListGratificadoByIdDate (Date data, int id) throws Exception {
+		List<LinhaListaPrioridade> listaPrioridades = new ArrayList<LinhaListaPrioridade>();
+		Connection connect = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		DataService dataService = new DataService();
+		try {
+
+			connect = dataService.loadDriver();
+			preparedStatement = connect
+					.prepareStatement("SELECT * FROM gestaoescalas.pessoa AS P LEFT JOIN (SELECT max(Data) as Data , Pessoa_Id , Gratificado_Id FROM gestaoescalas.GratificadoPessoa AS G INNER JOIN ( SELECT Id FROM gestaoescalas.Gratificado WHERE TipoGratificado_Id = ? ) AS SE ON SE.Id=G.Gratificado_Id WHERE Data < ? GROUP BY Pessoa_Id) AS S ON P.Id=S.Pessoa_Id where Ativo = '1' ORDER BY Data ASC;");
+			preparedStatement.setInt(1, id);
+			preparedStatement.setDate(2, data);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				listaPrioridades.add(new LinhaListaPrioridade(
+						resultSet.getDate("Data"),
+						resultSet.getString("Apelido")));
+			}
+			return listaPrioridades;
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if(resultSet!=null)
+				resultSet.close();
+			if(preparedStatement!=null)
+				preparedStatement.close();
+			if(connect!=null)
+				dataService.close(connect);
+		}
+
+	}
+
 }

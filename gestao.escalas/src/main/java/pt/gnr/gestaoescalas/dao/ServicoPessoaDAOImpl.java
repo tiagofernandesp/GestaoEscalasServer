@@ -54,6 +54,41 @@ public class ServicoPessoaDAOImpl implements ServicoPessoaDAO{
 		}
 
 	}
+	public List<ServicoPessoa> getServicoPessoasByDate(Date dat) throws Exception {
+		List<ServicoPessoa> servicoPessoas = new ArrayList<ServicoPessoa>();
+		Connection connect = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		DataService dataService = new DataService();
+		try {
+
+			connect = dataService.loadDriver();
+			preparedStatement = connect
+					.prepareStatement("SELECT * from gestaoescalas.servicopessoa where Data = ?;");
+			preparedStatement.setDate(1, dat);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				servicoPessoas.add(new ServicoPessoa(
+						resultSet.getInt("Id"),
+						servicoDAOImpl.getServico(resultSet.getInt("Servico_Id")),
+						pessoaDAOImpl.getPessoa(resultSet.getInt("Pessoa_Id")),
+						resultSet.getInt("Status"),
+						resultSet.getString("Erro"),
+						resultSet.getDate("Data")));
+			}
+			return servicoPessoas;
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if(resultSet!=null)
+				resultSet.close();
+			if(preparedStatement!=null)
+				preparedStatement.close();
+			if(connect!=null)
+				dataService.close(connect);
+		}
+
+	}
 	public List<ServicoPessoa> getServicoPessoasByDataPessoa (Date data, int idPessoa) throws Exception {
 		List<ServicoPessoa> servicoPessoas = new ArrayList<ServicoPessoa>();
 		Connection connect = null;

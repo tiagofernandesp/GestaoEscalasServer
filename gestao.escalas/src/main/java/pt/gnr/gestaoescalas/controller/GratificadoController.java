@@ -1,5 +1,6 @@
 package pt.gnr.gestaoescalas.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -54,7 +55,24 @@ public class GratificadoController {
 		}
 
 	}
+	/**
+	 *
+	 * Devolve todos objetos da tabela por data
+	 *
+	 * @return Lista de objectos
+	 * */
 
+	@RequestMapping(method = RequestMethod.GET, value = "/date/{data}")
+	public @ResponseBody List<Gratificado> getGratificadosByDate(@PathVariable("data") Date data)
+			throws Exception {
+		try {
+			List<Gratificado> gratificados = gratificadoDAOImpl.getGratificadosByDate(data);
+			return gratificados;
+		} catch (Exception e) {
+			throw e;
+		}
+
+	}
 	/**
 	 *
 	 * Adiciona novo objecto

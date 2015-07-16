@@ -1,6 +1,7 @@
 package pt.gnr.gestaoescalas.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -53,6 +54,42 @@ public class GratificadoPessoaDAOImpl implements GratificadoPessoaDAO{
 		}
 	}
 
+	public List<GratificadoPessoa> getGratificadoPessoasbetweenDates(Date dataI, Date dataF) throws Exception {
+		List<GratificadoPessoa> gratificadoPessoas = new ArrayList<GratificadoPessoa>();
+		Connection connect = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		DataService dataService = new DataService();
+		try {
+
+			connect = dataService.loadDriver();
+			preparedStatement = connect
+					.prepareStatement("SELECT * from gestaoescalas.gratificadopessoa where Data >= ? and Data <= ?;");
+			preparedStatement.setDate(1, dataI);
+			preparedStatement.setDate(2, dataF);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				gratificadoPessoas.add(new GratificadoPessoa(
+						resultSet.getInt("Id"),
+						gratificadoDAOImpl.getGratificado(resultSet.getInt("Gratificado_Id")),
+						pessoaDAOImpl.getPessoa(resultSet.getInt("Pessoa_Id")),
+						resultSet.getInt("Status"),
+						resultSet.getString("Erro"),
+						resultSet.getDate("Data")));
+			}
+			return gratificadoPessoas;
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if(resultSet!=null)
+				resultSet.close();
+			if(preparedStatement!=null)
+				preparedStatement.close();
+			if(connect!=null)
+				dataService.close(connect);
+		}
+
+	}
 	public GratificadoPessoa getGratificadoPessoa(int id) throws Exception {
 		GratificadoPessoa gratificadoPessoa = null;
 		Connection connect = null;

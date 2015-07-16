@@ -66,7 +66,7 @@ public class CategoriaController {
 	 *
 	 * */
 	@RequestMapping(method = RequestMethod.POST)
-	public int addCategoria(
+	public @ResponseBody int addCategoria(
 			@RequestBody Categoria categoria) throws Exception {
 
 		try {

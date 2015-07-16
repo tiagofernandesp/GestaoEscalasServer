@@ -10,7 +10,7 @@ public class Gratificado {
 	private String observacao;
 	private String local;
 	private TipoGratificado tipoGratificado;
-	private Viatura viatua;
+	private Viatura viatura;
 	private String fRadio;
 	private Date dataInicio;
 	private Date dataFim;
@@ -21,7 +21,7 @@ public class Gratificado {
 
 	public Gratificado(int id, Time horaInicio, Time horaFim,
 			String observacao, String local, TipoGratificado tipoGratificado,
-			Viatura viatua, String fRadio, Date dataInicio, Date dataFim) {
+			Viatura viatura, String fRadio, Date dataInicio, Date dataFim) {
 		super();
 		this.id = id;
 		this.horaInicio = horaInicio;
@@ -29,7 +29,7 @@ public class Gratificado {
 		this.observacao = observacao;
 		this.local = local;
 		this.tipoGratificado = tipoGratificado;
-		this.viatua = viatua;
+		this.viatura = viatura;
 		this.fRadio = fRadio;
 		this.dataInicio = dataInicio;
 		this.dataFim = dataFim;
@@ -83,12 +83,12 @@ public class Gratificado {
 		this.tipoGratificado = tipoGratificado;
 	}
 
-	public Viatura getViatua() {
-		return viatua;
+	public Viatura getViatura() {
+		return viatura;
 	}
 
-	public void setViatua(Viatura viatua) {
-		this.viatua = viatua;
+	public void setViatura(Viatura viatura) {
+		this.viatura = viatura;
 	}
 
 	public String getfRadio() {

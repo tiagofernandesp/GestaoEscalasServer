@@ -7,13 +7,14 @@ public class TipoServico {
 	private int horaInicio;
 	private int horaFim;
 	private boolean servicoMinimo;
-	
+	private boolean servicoRepetitivo;
+
 	public TipoServico() {
-		this(-1,"","",0,0,false);
+		this(-1,"","",0,0,false,false);
 	}
 
 	public TipoServico(int id, String nome, String prefixo, int horaInicio,
-			int horaFim, boolean servicoMinimo) {
+			int horaFim, boolean servicoMinimo, boolean servicoRepetitivo) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -21,6 +22,7 @@ public class TipoServico {
 		this.horaInicio = horaInicio;
 		this.horaFim = horaFim;
 		this.servicoMinimo = servicoMinimo;
+		this.servicoRepetitivo = servicoRepetitivo;
 	}
 
 	public int getId() {
@@ -70,5 +72,13 @@ public class TipoServico {
 	public void setServicoMinimo(boolean servicoMinimo) {
 		this.servicoMinimo = servicoMinimo;
 	}
-	
+	public boolean getServicoRepetitivo() {
+		return servicoRepetitivo;
+	}
+
+	public void setServicoRepetitivo(boolean servicoRepetitivo) {
+		this.servicoRepetitivo = servicoRepetitivo;
+	}
+
+
 }

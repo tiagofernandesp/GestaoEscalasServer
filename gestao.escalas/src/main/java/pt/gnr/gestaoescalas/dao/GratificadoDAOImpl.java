@@ -1,6 +1,7 @@
 package pt.gnr.gestaoescalas.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -58,6 +59,44 @@ public class GratificadoDAOImpl implements GratificadoDAO{
 
 	}
 
+	public List<Gratificado> getGratificadosByDate (Date data) throws Exception{
+		List<Gratificado> servicos = new ArrayList<Gratificado>();
+		Connection connect = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		DataService dataService = new DataService();
+		try {
+
+			connect = dataService.loadDriver();
+			preparedStatement = connect
+					.prepareStatement("SELECT * from gestaoescalas.gratificado where DataInicio= ?;");
+			preparedStatement.setDate(1, data);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				servicos.add(new Gratificado(
+						resultSet.getInt("Id"),
+						resultSet.getTime("HoraInicio"),
+						resultSet.getTime("HoraFim"),
+						resultSet.getString("Observacao"),
+						resultSet.getString("Local"),
+						tipoGratificadoDAOImpl.getTipoGratificado(resultSet.getInt("TipoGratificado_Id")),
+						viaturaDAOImpl.getViatura(resultSet.getInt("Viatura_Id")),
+						resultSet.getString("FRadio"),
+						resultSet.getDate("DataInicio"),
+						resultSet.getDate("DataFim")));
+			}
+			return servicos;
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if(resultSet!=null)
+				resultSet.close();
+			if(preparedStatement!=null)
+				preparedStatement.close();
+			if(connect!=null)
+				dataService.close(connect);
+		}
+	}
 	public Gratificado getGratificado(int id) throws Exception {
 		Gratificado gratificado = null;
 		Connection connect = null;
@@ -114,7 +153,7 @@ public class GratificadoDAOImpl implements GratificadoDAO{
 			preparedStatement.setString(3, gratificado.getObservacao());
 			preparedStatement.setString(4, gratificado.getLocal());
 			preparedStatement.setInt(5, gratificado.getTipoGratificado().getId());
-			preparedStatement.setInt(6, gratificado.getViatua().getId());
+			preparedStatement.setInt(6, gratificado.getViatura().getId());
 			preparedStatement.setString(7, gratificado.getfRadio());
 			preparedStatement.setDate(8, gratificado.getDataInicio());
 			preparedStatement.setDate(9, gratificado.getDataFim());
@@ -168,7 +207,7 @@ public class GratificadoDAOImpl implements GratificadoDAO{
 			preparedStatement.setString(3, gratificado.getObservacao());
 			preparedStatement.setString(4, gratificado.getLocal());
 			preparedStatement.setInt(5, gratificado.getTipoGratificado().getId());
-			preparedStatement.setInt(6, gratificado.getViatua().getId());
+			preparedStatement.setInt(6, gratificado.getViatura().getId());
 			preparedStatement.setString(7, gratificado.getfRadio());
 			preparedStatement.setDate(8, gratificado.getDataInicio());
 			preparedStatement.setDate(9, gratificado.getDataFim());
