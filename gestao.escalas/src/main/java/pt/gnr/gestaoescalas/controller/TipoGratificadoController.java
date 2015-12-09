@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import pt.gnr.gestaoescalas.dao.TipoGratificadoDAOImpl;
+import pt.gnr.gestaoescalas.service.TipoGratificadoService;
 import pt.gnr.gestaoescalas.model.TipoGratificado;
 
 @Controller
 @RequestMapping("/tipogratificado")
 public class TipoGratificadoController {
 
-	private TipoGratificadoDAOImpl tipoGratificadoDAOImpl = new TipoGratificadoDAOImpl();
+	private TipoGratificadoService tipoGratificadoService = new TipoGratificadoService();
 	/**
 	 *
 	 * Devolve todos objetos da tabela
@@ -27,7 +27,7 @@ public class TipoGratificadoController {
 	public @ResponseBody List<TipoGratificado> getTipoGratificados()
 			throws Exception {
 		try {
-			List<TipoGratificado> tipoGratificados = tipoGratificadoDAOImpl.getTipoGratificados();
+			List<TipoGratificado> tipoGratificados = tipoGratificadoService.getTipoGratificados();
 			return tipoGratificados;
 		} catch (Exception e) {
 			throw e;
@@ -49,7 +49,7 @@ public class TipoGratificadoController {
 			@PathVariable("id") int id) throws Exception {
 
 		try {
-			TipoGratificado tipoGratificado = tipoGratificadoDAOImpl.getTipoGratificado(id);
+			TipoGratificado tipoGratificado = tipoGratificadoService.getTipoGratificado(id);
 			return tipoGratificado;
 		} catch (Exception e) {
 			throw e;
@@ -70,7 +70,7 @@ public class TipoGratificadoController {
 			@RequestBody TipoGratificado tipoGratificado) throws Exception {
 
 		try {
-			return tipoGratificadoDAOImpl.addTipoGratificado(tipoGratificado);
+			return tipoGratificadoService.addTipoGratificado(tipoGratificado);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -89,7 +89,7 @@ public class TipoGratificadoController {
 			@RequestBody TipoGratificado tipoGratificado) throws Exception {
 
 		try {
-			return tipoGratificadoDAOImpl.updateTipoGratificado(tipoGratificado);
+			return tipoGratificadoService.updateTipoGratificado(tipoGratificado);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -109,7 +109,7 @@ public class TipoGratificadoController {
 			@RequestBody int id) throws Exception {
 
 		try {
-			return tipoGratificadoDAOImpl.deleteTipoGratificado(id);
+			return tipoGratificadoService.deleteTipoGratificado(id);
 		} catch (Exception e) {
 			throw e;
 		}

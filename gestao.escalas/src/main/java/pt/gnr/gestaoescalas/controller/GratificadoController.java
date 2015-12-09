@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import pt.gnr.gestaoescalas.dao.GratificadoDAOImpl;
+import pt.gnr.gestaoescalas.service.GratificadoService;
 import pt.gnr.gestaoescalas.model.Gratificado;
 
 @Controller
 @RequestMapping("/gratificado")
 public class GratificadoController {
 
-	private GratificadoDAOImpl gratificadoDAOImpl = new GratificadoDAOImpl();
+	private GratificadoService gratificadoService = new GratificadoService();
 	/**
 	 *
 	 * Devolve todos objetos da tabela
@@ -28,7 +28,7 @@ public class GratificadoController {
 	public @ResponseBody List<Gratificado> getGratificados()
 			throws Exception {
 		try {
-			List<Gratificado> gratificados = gratificadoDAOImpl.getGratificados();
+			List<Gratificado> gratificados = gratificadoService.getGratificados();
 			return gratificados;
 		} catch (Exception e) {
 			throw e;
@@ -48,7 +48,7 @@ public class GratificadoController {
 	public @ResponseBody Gratificado getGratificado(
 			@PathVariable("id") int id) throws Exception {
 		try {
-			Gratificado gratificado = gratificadoDAOImpl.getGratificado(id);
+			Gratificado gratificado = gratificadoService.getGratificado(id);
 			return gratificado;
 		} catch (Exception e) {
 			throw e;
@@ -66,7 +66,7 @@ public class GratificadoController {
 	public @ResponseBody List<Gratificado> getGratificadosByDate(@PathVariable("data") Date data)
 			throws Exception {
 		try {
-			List<Gratificado> gratificados = gratificadoDAOImpl.getGratificadosByDate(data);
+			List<Gratificado> gratificados = gratificadoService.getGratificadosByDate(data);
 			return gratificados;
 		} catch (Exception e) {
 			throw e;
@@ -85,7 +85,7 @@ public class GratificadoController {
 	public @ResponseBody int addGratificado(
 			@RequestBody Gratificado gratificado) throws Exception {
 		try {
-			return gratificadoDAOImpl.addGratificado(gratificado);
+			return gratificadoService.addGratificado(gratificado);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -103,7 +103,7 @@ public class GratificadoController {
 	public @ResponseBody int updateGratificado(
 			@RequestBody Gratificado gratificado) throws Exception {
 		try {
-			return gratificadoDAOImpl.updateGratificado(gratificado);
+			return gratificadoService.updateGratificado(gratificado);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -122,7 +122,7 @@ public class GratificadoController {
 	public @ResponseBody int deleteGratificado(
 			@RequestBody int id) throws Exception {
 		try {
-			return gratificadoDAOImpl.deleteGratificado(id);
+			return gratificadoService.deleteGratificado(id);
 		} catch (Exception e) {
 			throw e;
 		}

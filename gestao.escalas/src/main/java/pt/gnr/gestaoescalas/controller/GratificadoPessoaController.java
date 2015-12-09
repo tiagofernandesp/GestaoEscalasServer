@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import pt.gnr.gestaoescalas.dao.GratificadoPessoaDAOImpl;
+import pt.gnr.gestaoescalas.service.GratificadoPessoaService;
 import pt.gnr.gestaoescalas.model.GratificadoPessoa;
 
 @Controller
 @RequestMapping("/gratificadopessoa")
 public class GratificadoPessoaController {
 
-	private GratificadoPessoaDAOImpl gratificadoPessoaDAOImpl = new GratificadoPessoaDAOImpl();
+	private GratificadoPessoaService gratificadoPessoaService = new GratificadoPessoaService();
 
 	/**
 	 *
@@ -28,7 +28,7 @@ public class GratificadoPessoaController {
 	public @ResponseBody List<GratificadoPessoa> getGratificadoPessoas()
 			throws Exception {
 		try {
-			List<GratificadoPessoa> gratificadoPessoas = gratificadoPessoaDAOImpl.getGratificadoPessoas();
+			List<GratificadoPessoa> gratificadoPessoas = gratificadoPessoaService.getGratificadoPessoas();
 			return gratificadoPessoas;
 		} catch (Exception e) {
 			throw e;
@@ -50,7 +50,7 @@ public class GratificadoPessoaController {
 			@PathVariable("id") int id) throws Exception {
 
 		try {
-			GratificadoPessoa gratificadoPessoa = gratificadoPessoaDAOImpl.getGratificadoPessoa(id);
+			GratificadoPessoa gratificadoPessoa = gratificadoPessoaService.getGratificadoPessoa(id);
 			return gratificadoPessoa;
 		} catch (Exception e) {
 			throw e;
@@ -71,7 +71,7 @@ public class GratificadoPessoaController {
 			@RequestBody GratificadoPessoa gratificadoPessoa) throws Exception {
 
 		try {
-			return gratificadoPessoaDAOImpl.addGratificadoPessoa(gratificadoPessoa);
+			return gratificadoPessoaService.addGratificadoPessoa(gratificadoPessoa);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -90,7 +90,7 @@ public class GratificadoPessoaController {
 			@RequestBody GratificadoPessoa gratificadoPessoa) throws Exception {
 
 		try {
-			return gratificadoPessoaDAOImpl.updateGratificadoPessoa(gratificadoPessoa);
+			return gratificadoPessoaService.updateGratificadoPessoa(gratificadoPessoa);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -110,7 +110,7 @@ public class GratificadoPessoaController {
 			@RequestBody int id) throws Exception {
 
 		try {
-			return gratificadoPessoaDAOImpl.deleteGratificadoPessoa(id);
+			return gratificadoPessoaService.deleteGratificadoPessoa(id);
 		} catch (Exception e) {
 			throw e;
 		}

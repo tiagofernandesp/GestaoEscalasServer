@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import pt.gnr.gestaoescalas.dao.PessoaDAOImpl;
+import pt.gnr.gestaoescalas.service.PessoaService;
 import pt.gnr.gestaoescalas.model.Pessoa;
 
 @Controller
 @RequestMapping("/pessoa")
 public class PessoaController {
 
-	private PessoaDAOImpl pessoaDAOImpl = new PessoaDAOImpl();
+	private PessoaService pessoaService = new PessoaService();
 
 	/**
 	 *
@@ -28,7 +28,7 @@ public class PessoaController {
 	public @ResponseBody List<Pessoa> getPessoas()
 			throws Exception {
 		try {
-			List<Pessoa> pessoas = pessoaDAOImpl.getPessoas();
+			List<Pessoa> pessoas = pessoaService.getPessoas();
 			return pessoas;
 		} catch (Exception e) {
 			throw e;
@@ -44,7 +44,7 @@ public class PessoaController {
 	public @ResponseBody List<Pessoa> getPessoasAtivas()
 			throws Exception {
 		try {
-			List<Pessoa> pessoas = pessoaDAOImpl.getPessoasAtivas();
+			List<Pessoa> pessoas = pessoaService.getPessoasAtivas();
 			return pessoas;
 		} catch (Exception e) {
 			throw e;
@@ -64,7 +64,7 @@ public class PessoaController {
 			@PathVariable("id") int id) throws Exception {
 
 		try {
-			Pessoa pessoa = pessoaDAOImpl.getPessoa(id);
+			Pessoa pessoa = pessoaService.getPessoa(id);
 			return pessoa;
 		} catch (Exception e) {
 			throw e;
@@ -86,7 +86,7 @@ public class PessoaController {
 			@RequestBody Pessoa pessoa) throws Exception {
 
 		try {
-			return pessoaDAOImpl.addPessoa(pessoa);
+			return pessoaService.addPessoa(pessoa);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -105,7 +105,7 @@ public class PessoaController {
 			@RequestBody Pessoa pessoa) throws Exception {
 
 		try {
-			return pessoaDAOImpl.updatePessoa(pessoa);
+			return pessoaService.updatePessoa(pessoa);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -125,7 +125,7 @@ public class PessoaController {
 			@RequestBody int id) throws Exception {
 
 		try {
-			return pessoaDAOImpl.deletePessoa(id);
+			return pessoaService.deletePessoa(id);
 		} catch (Exception e) {
 			throw e;
 		}

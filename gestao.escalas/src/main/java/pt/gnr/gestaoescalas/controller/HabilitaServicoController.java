@@ -1,6 +1,5 @@
 package pt.gnr.gestaoescalas.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -10,8 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import pt.gnr.gestaoescalas.dao.HabilitaServicoDAOImpl;
-import pt.gnr.gestaoescalas.dao.PessoaDAOImpl;
+import pt.gnr.gestaoescalas.service.HabilitaServicoService;
 import pt.gnr.gestaoescalas.model.HabilitaServico;
 import pt.gnr.gestaoescalas.model.TipoServico;
 
@@ -19,8 +17,7 @@ import pt.gnr.gestaoescalas.model.TipoServico;
 @RequestMapping("/habilitaservico")
 public class HabilitaServicoController {
 
-	private HabilitaServicoDAOImpl habilitaServicoDAOImpl = new HabilitaServicoDAOImpl();
-	private PessoaDAOImpl pessoaDAOImpl = new PessoaDAOImpl();
+	private HabilitaServicoService habilitaServicoService = new HabilitaServicoService();
 	/**
 	 *
 	 * Devolve todos objetos da tabela
@@ -31,7 +28,7 @@ public class HabilitaServicoController {
 	public @ResponseBody List<HabilitaServico> getHabilitaServicos()
 			throws Exception {
 		try{
-			List<HabilitaServico> habilitaServicos = habilitaServicoDAOImpl.getHabilitaServicos();
+			List<HabilitaServico> habilitaServicos = habilitaServicoService.getHabilitaServicos();
 			return habilitaServicos;
 		} catch (Exception e) {
 			throw e;
@@ -52,12 +49,7 @@ public class HabilitaServicoController {
 			@PathVariable("id") int id) throws Exception {
 
 		try {
-			List<HabilitaServico> habilitaServicos = habilitaServicoDAOImpl.getHabilitaServicosByPerson(id);
-			List<TipoServico> tipoServico = new ArrayList<TipoServico>();
-			for(HabilitaServico hServico : habilitaServicos) {
-				tipoServico.add(hServico.getTipoServico());
-			}
-			return tipoServico;
+			return habilitaServicoService.getHabilitaServicosByPerson(id);
 
 		} catch (Exception e) {
 			throw e;
@@ -77,32 +69,8 @@ public class HabilitaServicoController {
 			@PathVariable("id") int id ,@RequestBody  List<TipoServico> tipoServicos) throws Exception {
 
 		try {
-			boolean b = false;
-			HabilitaServico hServico = new HabilitaServico();
-			List<TipoServico> oldTipoServicos = getHabilitaServicoByPerson(id);
-			for(TipoServico tServico : tipoServicos) {
-				hServico = habilitaServicoDAOImpl.getByTServicoAndPessoa(tServico.getId(), id);
-			    if (hServico==null) {
-			    	hServico = new HabilitaServico();
-			    	hServico.setPessoa(pessoaDAOImpl.getPessoa(id));
-			    	hServico.setTipoServico(tServico);
-			    	habilitaServicoDAOImpl.addHabilitaServico(hServico);
-				}
-			}
-
-			for(TipoServico oldTServico : oldTipoServicos) {
-				for(TipoServico tServico : tipoServicos) {
-					if (oldTServico.getId()==tServico.getId()) {
-						b=true;
-					}
-				}
-				if (b==false) {
-					hServico = habilitaServicoDAOImpl.getByTServicoAndPessoa(oldTServico.getId(), id);
-					habilitaServicoDAOImpl.deleteHabilitaServico(hServico.getId());
-				}
-				b=false;
-			}
-			return 1;
+			
+			return habilitaServicoService.updateHabilitaServicos(id, tipoServicos);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -121,8 +89,7 @@ public class HabilitaServicoController {
 			@PathVariable("id") int id) throws Exception {
 
 		try {
-			HabilitaServico habilitaServico = habilitaServicoDAOImpl.getHabilitaServico(id);
-			return habilitaServico;
+			return habilitaServicoService.getHabilitaServico(id);
 
 		} catch (Exception e) {
 			throw e;
@@ -143,7 +110,7 @@ public class HabilitaServicoController {
 
 		try {
 
-			return habilitaServicoDAOImpl.addHabilitaServico(habilitaServico);
+			return habilitaServicoService.addHabilitaServico(habilitaServico);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -163,7 +130,7 @@ public class HabilitaServicoController {
 
 		try {
 
-			return habilitaServicoDAOImpl.updateHabilitaServico(habilitaServico);
+			return habilitaServicoService.updateHabilitaServico(habilitaServico);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -184,7 +151,7 @@ public class HabilitaServicoController {
 
 		try {
 
-			return habilitaServicoDAOImpl.deleteHabilitaServico(id);
+			return habilitaServicoService.deleteHabilitaServico(id);
 		} catch (Exception e) {
 			throw e;
 		}

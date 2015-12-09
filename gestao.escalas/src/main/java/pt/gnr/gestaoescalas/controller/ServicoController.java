@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import pt.gnr.gestaoescalas.dao.ServicoDAOImpl;
+import pt.gnr.gestaoescalas.service.ServicoService;
 import pt.gnr.gestaoescalas.model.Servico;
 
 @Controller
 @RequestMapping("/servico")
 public class ServicoController {
 
-	private ServicoDAOImpl servicoDAOImpl = new ServicoDAOImpl();
+	private ServicoService servicoService = new ServicoService();
 	/**
 	 *
 	 * Devolve todos objetos da tabela
@@ -28,7 +28,7 @@ public class ServicoController {
 	public @ResponseBody List<Servico> getServicos()
 			throws Exception {
 		try {
-			List<Servico> servicos = servicoDAOImpl.getServicos();
+			List<Servico> servicos = servicoService.getServicos();
 			return servicos;
 		} catch (Exception e) {
 			throw e;
@@ -47,7 +47,7 @@ public class ServicoController {
 	public @ResponseBody List<Servico> getServicosByDate(@PathVariable("data") Date data)
 			throws Exception {
 		try {
-			List<Servico> servicos = servicoDAOImpl.getServicosByDate(data);
+			List<Servico> servicos = servicoService.getServicosByDate(data);
 			return servicos;
 		} catch (Exception e) {
 			throw e;
@@ -69,7 +69,7 @@ public class ServicoController {
 			@PathVariable("id") int id) throws Exception {
 
 		try {
-			Servico servico = servicoDAOImpl.getServico(id);
+			Servico servico = servicoService.getServico(id);
 			return servico;
 		} catch (Exception e) {
 			throw e;
@@ -90,7 +90,7 @@ public class ServicoController {
 			@RequestBody Servico servico) throws Exception {
 
 		try {
-			return servicoDAOImpl.addServico(servico);
+			return servicoService.addServico(servico);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -108,7 +108,7 @@ public class ServicoController {
 	public @ResponseBody int updateServico(
 			@RequestBody Servico servico) throws Exception {
 		try {
-			return servicoDAOImpl.updateServico(servico);
+			return servicoService.updateServico(servico);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -130,7 +130,7 @@ public class ServicoController {
 			@RequestBody Servico s) throws Exception {
 
 		try {
-			return servicoDAOImpl.deleteServico(s.getId());
+			return servicoService.deleteServico(s);
 		} catch (Exception e) {
 			throw e;
 		}

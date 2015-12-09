@@ -9,15 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-//import java.sql.SQLException;
-import pt.gnr.gestaoescalas.dao.CategoriaDAOImpl;
 import pt.gnr.gestaoescalas.model.Categoria;
+import pt.gnr.gestaoescalas.service.CategoriaService;
 
 @Controller
 @RequestMapping("/categoria")
 public class CategoriaController {
 
-	private CategoriaDAOImpl categoriaDAOImpl = new CategoriaDAOImpl();
+	private CategoriaService categoriaService = new CategoriaService();
 	/**
 	 *
 	 * Devolve todos objetos da tabela
@@ -28,7 +27,7 @@ public class CategoriaController {
 	public @ResponseBody List<Categoria> getCategorias()
 			throws Exception {
 		try{
-			List<Categoria> categorias = categoriaDAOImpl.getCategorias();
+			List<Categoria> categorias = categoriaService.getCategorias();
 			return categorias;
 		} catch (Exception e) {
 			throw e;
@@ -49,7 +48,7 @@ public class CategoriaController {
 			@PathVariable("id") int id) throws Exception {
 
 		try {
-			Categoria categoria = categoriaDAOImpl.getCategoria(id);
+			Categoria categoria = categoriaService.getCategoria(id);
 			return categoria;
 
 		} catch (Exception e) {
@@ -71,7 +70,7 @@ public class CategoriaController {
 
 		try {
 
-			return categoriaDAOImpl.addCategoria(categoria);
+			return categoriaService.addCategoria(categoria);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -91,7 +90,7 @@ public class CategoriaController {
 
 		try {
 
-			return categoriaDAOImpl.updateCategoria(categoria);
+			return categoriaService.updateCategoria(categoria);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -112,7 +111,7 @@ public class CategoriaController {
 
 		try {
 
-			return categoriaDAOImpl.deleteCategoria(id);
+			return categoriaService.deleteCategoria(id);
 		} catch (Exception e) {
 			throw e;
 		}

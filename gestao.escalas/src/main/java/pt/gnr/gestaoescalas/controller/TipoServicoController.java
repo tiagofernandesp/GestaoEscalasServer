@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import pt.gnr.gestaoescalas.dao.TipoServicoDAOImpl;
+import pt.gnr.gestaoescalas.service.TipoServicoService;
 import pt.gnr.gestaoescalas.model.TipoServico;
 
 @Controller
 @RequestMapping("/tiposervico")
 public class TipoServicoController {
 
-	private TipoServicoDAOImpl tipoServicoDAOImpl = new TipoServicoDAOImpl();
+	private TipoServicoService tipoServicoService = new TipoServicoService();
 	/**
 	 *
 	 * Devolve todos objetos da tabela
@@ -28,7 +28,7 @@ public class TipoServicoController {
 			throws Exception {
 
 		try {
-			List<TipoServico> tipoServicos = tipoServicoDAOImpl.getTipoServicos();
+			List<TipoServico> tipoServicos = tipoServicoService.getTipoServicos();
 			return tipoServicos;
 		} catch (Exception e) {
 			throw e;
@@ -49,7 +49,7 @@ public class TipoServicoController {
 			@PathVariable("id") int id) throws Exception {
 
 		try {
-			TipoServico tipoServico = tipoServicoDAOImpl.getTipoServico(id);
+			TipoServico tipoServico = tipoServicoService.getTipoServico(id);
 			return tipoServico;
 		} catch (Exception e) {
 			throw e;
@@ -70,7 +70,7 @@ public class TipoServicoController {
 			@RequestBody TipoServico tipoServico) throws Exception {
 
 		try {
-			return tipoServicoDAOImpl.addTipoServico(tipoServico);
+			return tipoServicoService.addTipoServico(tipoServico);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -89,7 +89,7 @@ public class TipoServicoController {
 			@RequestBody TipoServico tipoServico) throws Exception {
 
 		try {
-			return tipoServicoDAOImpl.updateTipoServico(tipoServico);
+			return tipoServicoService.updateTipoServico(tipoServico);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -109,7 +109,7 @@ public class TipoServicoController {
 			@RequestBody int id) throws Exception {
 
 		try {
-			return tipoServicoDAOImpl.deleteTipoServico(id);
+			return tipoServicoService.deleteTipoServico(id);
 		} catch (Exception e) {
 			throw e;
 		}

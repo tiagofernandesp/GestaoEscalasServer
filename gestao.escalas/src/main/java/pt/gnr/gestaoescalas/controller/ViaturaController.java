@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import pt.gnr.gestaoescalas.dao.ViaturaDAOImpl;
+import pt.gnr.gestaoescalas.service.ViaturaService;
 import pt.gnr.gestaoescalas.model.Viatura;
 
 @Controller
 @RequestMapping("/viatura")
 public class ViaturaController {
 
-	private ViaturaDAOImpl viaturaDAOImpl = new ViaturaDAOImpl();
+	private ViaturaService viaturaService = new ViaturaService();
 	/**
 	 *
 	 * Devolve todos objetos da tabela
@@ -27,7 +27,7 @@ public class ViaturaController {
 	public @ResponseBody List<Viatura> getViaturas()
 			throws Exception {
 		try {
-			List<Viatura> viaturas = viaturaDAOImpl.getViaturas();
+			List<Viatura> viaturas = viaturaService.getViaturas();
 			return viaturas;
 		} catch (Exception e) {
 			throw e;
@@ -49,7 +49,7 @@ public class ViaturaController {
 			@PathVariable("id") int id) throws Exception {
 
 		try {
-			Viatura viatura = viaturaDAOImpl.getViatura(id);
+			Viatura viatura = viaturaService.getViatura(id);
 			return viatura;
 		} catch (Exception e) {
 			throw e;
@@ -71,7 +71,7 @@ public class ViaturaController {
 	public @ResponseBody int addViatura(
 			@RequestBody Viatura viatura) throws Exception {
 		try {
-			return viaturaDAOImpl.addViatura(viatura);
+			return viaturaService.addViatura(viatura);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -93,7 +93,7 @@ public class ViaturaController {
 			@RequestBody Viatura viatura) throws Exception {
 
 		try {
-			return viaturaDAOImpl.updateViatura(viatura);
+			return viaturaService.updateViatura(viatura);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -115,7 +115,7 @@ public class ViaturaController {
 			@RequestBody int id) throws Exception {
 
 		try {
-			return viaturaDAOImpl.deleteViatura(id);
+			return viaturaService.deleteViatura(id);
 		} catch (Exception e) {
 			throw e;
 		}
