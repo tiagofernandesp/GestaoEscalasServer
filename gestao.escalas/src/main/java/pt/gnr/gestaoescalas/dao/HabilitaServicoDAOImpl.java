@@ -30,7 +30,7 @@ public class HabilitaServicoDAOImpl implements HabilitaServicoDAO{
 			connect = dataService.loadDriver();
 
 			preparedStatement = connect
-					.prepareStatement("SELECT Pessoa_Id FROM gestaoescalas.HabilitaServico AS HS "
+					.prepareStatement("SELECT Pessoa_Id FROM gestaoescalas.habilitaservico AS HS "
 							+ "INNER JOIN (SELECT Id FROM gestaoescalas.pessoa where Ativo = '1' )  AS P "
 							+ "ON HS.Pessoa_Id=P.Id where TipoServico_Id = ?;");
 			preparedStatement.setInt(1, tipoService_Id);
@@ -63,7 +63,7 @@ public class HabilitaServicoDAOImpl implements HabilitaServicoDAO{
 			connect = dataService.loadDriver();
 
 			preparedStatement = connect
-					.prepareStatement("SELECT * from gestaoescalas.HabilitaServico where Pessoa_Id= ? AND TipoServico_Id = ?");
+					.prepareStatement("SELECT * from gestaoescalas.habilitaservico where Pessoa_Id= ? AND TipoServico_Id = ?");
 			preparedStatement.setInt(1, pessoa_Id);
 			preparedStatement.setInt(2, tServico_Id);
 
@@ -97,7 +97,7 @@ public class HabilitaServicoDAOImpl implements HabilitaServicoDAO{
 
 			connect = dataService.loadDriver();
 			preparedStatement = connect
-					.prepareStatement("SELECT * from gestaoescalas.HabilitaServico;");
+					.prepareStatement("SELECT * from gestaoescalas.habilitaservico;");
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				habilitaServicos.add(new HabilitaServico(
@@ -128,7 +128,7 @@ public class HabilitaServicoDAOImpl implements HabilitaServicoDAO{
 
 			connect = dataService.loadDriver();
 			preparedStatement = connect
-					.prepareStatement("SELECT * from gestaoescalas.HabilitaServico where Pessoa_Id = ?;");
+					.prepareStatement("SELECT * from gestaoescalas.habilitaservico where Pessoa_Id = ?;");
 			preparedStatement.setInt(1, id);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
@@ -161,7 +161,7 @@ public class HabilitaServicoDAOImpl implements HabilitaServicoDAO{
 			connect = dataService.loadDriver();
 
 			preparedStatement = connect
-					.prepareStatement("SELECT * from gestaoescalas.HabilitaServico where Id= ?");
+					.prepareStatement("SELECT * from gestaoescalas.habilitaservico where Id= ?");
 			preparedStatement.setInt(1, id);
 
 			resultSet = preparedStatement.executeQuery();
@@ -194,7 +194,7 @@ public class HabilitaServicoDAOImpl implements HabilitaServicoDAO{
 			connect = dataService.loadDriver();
 
 			preparedStatement = connect
-					.prepareStatement("insert into gestaoescalas.HabilitaServico (Pessoa_Id,TipoServico_Id) values ( ?, ?)");
+					.prepareStatement("insert into gestaoescalas.habilitaservico (Pessoa_Id,TipoServico_Id) values ( ?, ?)");
 			preparedStatement.setInt(1, habilitaServico.getPessoa().getId());
 			preparedStatement.setInt(2, habilitaServico.getTipoServico().getId());
 			return preparedStatement.executeUpdate();
@@ -218,7 +218,7 @@ public class HabilitaServicoDAOImpl implements HabilitaServicoDAO{
 			connect = dataService.loadDriver();
 
 			preparedStatement = connect
-					.prepareStatement("DELETE FROM gestaoescalas.HabilitaServico where Id = ?");
+					.prepareStatement("DELETE FROM gestaoescalas.habilitaservico where Id = ?");
 			preparedStatement.setInt(1, id);
 			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
@@ -242,7 +242,7 @@ public class HabilitaServicoDAOImpl implements HabilitaServicoDAO{
 			connect = dataService.loadDriver();
 
 			preparedStatement = connect
-					.prepareStatement("update gestaoescalas.HabilitaServico set Pessoa_Id = ?, TipoServico_Id = ? where Id = ?");
+					.prepareStatement("update gestaoescalas.habilitaservico set Pessoa_Id = ?, TipoServico_Id = ? where Id = ?");
 			preparedStatement.setInt(1, habilitaServico.getPessoa().getId());
 			preparedStatement.setInt(2, habilitaServico.getTipoServico().getId());
 			preparedStatement.setInt(3, habilitaServico.getId());

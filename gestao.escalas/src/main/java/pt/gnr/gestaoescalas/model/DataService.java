@@ -8,9 +8,9 @@ public class DataService {
 
 	private static Connection con;
 	private static final String Driver = "com.mysql.jdbc.Driver";
-	private static final String ConnectionString = "jdbc:mysql://localhost/gestaoescalas?";
-	private static final String user = "tiago";
-	private static final String pwd = "tiago1990";
+	private static final String ConnectionString = "jdbc:mysql://mysql23950-escalas.jelastic.lunacloud.com/user";
+	private static final String user = "user";
+	private static final String pwd = "yz6yHGUvtRAwKftC";
 
 	public DataService() {
 	}

@@ -27,7 +27,7 @@ public class PessoaDAOImpl implements PessoaDAO{
 
 			connect = dataService.loadDriver();
 			preparedStatement = connect
-					.prepareStatement("SELECT * from gestaoescalas.Pessoa;");
+					.prepareStatement("SELECT * from gestaoescalas.pessoa;");
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				pessoas.add(new Pessoa(
@@ -72,7 +72,7 @@ public class PessoaDAOImpl implements PessoaDAO{
 
 			connect = dataService.loadDriver();
 			preparedStatement = connect
-					.prepareStatement("SELECT * from gestaoescalas.Pessoa where Ativo = 1;");
+					.prepareStatement("SELECT * from gestaoescalas.pessoa where Ativo = 1;");
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				pessoas.add(new Pessoa(
@@ -117,7 +117,7 @@ public class PessoaDAOImpl implements PessoaDAO{
 			connect = dataService.loadDriver();
 
 			preparedStatement = connect
-					.prepareStatement("SELECT * from gestaoescalas.Pessoa where Id= ?");
+					.prepareStatement("SELECT * from gestaoescalas.pessoa where Id= ?");
 			preparedStatement.setInt(1, id);
 
 			resultSet = preparedStatement.executeQuery();
@@ -162,7 +162,7 @@ public class PessoaDAOImpl implements PessoaDAO{
 			connect = dataService.loadDriver();
 
 			preparedStatement = connect
-					.prepareStatement("insert into gestaoescalas.Pessoa (PNome, UNome, Apelido, Telemovel, Telefone, CP, Rua, Porta, Cidade, NumeroGNR, NumeroPosto, Ativo, DataIngresso, Categoria_Id) values ( ?, ?,?, ?,?, ?,?, ?,?, ?,?, ?,?,?)");
+					.prepareStatement("insert into gestaoescalas.pessoa (PNome, UNome, Apelido, Telemovel, Telefone, CP, Rua, Porta, Cidade, NumeroGNR, NumeroPosto, Ativo, DataIngresso, Categoria_Id) values ( ?, ?,?, ?,?, ?,?, ?,?, ?,?, ?,?,?)");
 			preparedStatement.setString(1, pessoa.getpNome());
 			preparedStatement.setString(2, pessoa.getuNome());
 			preparedStatement.setString(3, pessoa.getApelido());
@@ -198,7 +198,7 @@ public class PessoaDAOImpl implements PessoaDAO{
 			connect = dataService.loadDriver();
 
 			preparedStatement = connect
-					.prepareStatement("DELETE FROM gestaoescalas.Pessoa where Id = ?");
+					.prepareStatement("DELETE FROM gestaoescalas.pessoa where Id = ?");
 			preparedStatement.setInt(1, id);
 			return preparedStatement.executeUpdate();
 
@@ -222,7 +222,7 @@ public class PessoaDAOImpl implements PessoaDAO{
 			connect = dataService.loadDriver();
 
 			preparedStatement = connect
-					.prepareStatement("update gestaoescalas.Pessoa set PNome = ?, UNome = ?, Apelido = ?, Telemovel = ?, Telefone = ?, CP = ?, Rua = ?, Porta = ?, Cidade = ?, NumeroGNR = ?, NumeroPosto = ?, Ativo = ?, DataIngresso = ?, Categoria_Id = ? where Id = ?");
+					.prepareStatement("update gestaoescalas.pessoa set PNome = ?, UNome = ?, Apelido = ?, Telemovel = ?, Telefone = ?, CP = ?, Rua = ?, Porta = ?, Cidade = ?, NumeroGNR = ?, NumeroPosto = ?, Ativo = ?, DataIngresso = ?, Categoria_Id = ? where Id = ?");
 			preparedStatement.setString(1, pessoa.getpNome());
 			preparedStatement.setString(2, pessoa.getuNome());
 			preparedStatement.setString(3, pessoa.getApelido());
